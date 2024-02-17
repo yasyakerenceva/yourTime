@@ -1,4 +1,42 @@
 @import-normalize;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	@font-face {
+		font-family: "Montserrat";
+		src:
+			url("./assets/fonts/montserrat/Montserrat-Bold.ttf") format("woff"),
+			url("./assets/fonts/montserrat/Montserrat-Bold.ttf")
+				format("truetype");
+		font-weight: bold;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "Montserrat";
+		src:
+			url("./assets/fonts/montserrat/Montserrat-Regular.woff")
+				format("woff"),
+			url("./assets/fonts/montserrat/Montserrat-Regular.ttf")
+				format("truetype");
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "RockSalt";
+		src:
+			url("./assets/fonts/rock-salt/RockSalt-Regular.woff") format("woff"),
+			url("./assets/fonts/rock-salt/RockSalt-Regular.ttf")
+				format("truetype");
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	html {
+		font-family: "Montserrat", sans-serif;
+	}
+}
