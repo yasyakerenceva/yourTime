@@ -40,3 +40,42 @@
 		font-family: "Montserrat", sans-serif;
 	}
 }
+
+@layer components {
+	.title {
+		@apply text-40px font-bold;
+	}
+
+	.description {
+		@apply text-20px;
+	}
+
+	.link,
+	.btn {
+		@apply flex items-center justify-center rounded-[45px];
+	}
+
+	.link__icon {
+		@apply bg-white absolute right-2 flex items-center justify-center h-10 w-10 rounded-[45px] transition-all duration-300 group-hover:w-[calc(100%-16px)] group-active:scale-95;
+	}
+
+	.btn-background-primary,
+	.link-background-primary {
+		@apply text-white bg-primary;
+	}
+
+	.btn-border-primary,
+	.link-border-primary {
+		@apply border-2 border-solid border-primary text-black bg-transparent !important;
+	}
+
+	.btn-border-white,
+	.link-border-white {
+		@apply border-2 border-solid border-white text-white bg-transparent;
+	}
+
+	.btn-animation,
+	.link-animation {
+		@apply transition duration-300 hover:translate-y-[-5px] focus:translate-y-[-5px] focus:outline-none active:scale-95 active:duration-300;
+	}
+}
