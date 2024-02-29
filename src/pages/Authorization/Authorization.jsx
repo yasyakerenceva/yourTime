@@ -42,9 +42,12 @@ export const Authorization = () => {
 
 	return (
 		<main className="flex justify-between h-full">
-			<div className="w-3/5 flex flex-col justify-center px-60">
-				<h1 className="title">Авторизация</h1>
-				<form onSubmit={handleSubmit(onSubmit)}>
+			<div className="w-3/5 flex flex-col justify-center">
+				<h1 className="title text-center">Авторизация</h1>
+				<form
+					className="w-3/5 mx-auto"
+					onSubmit={handleSubmit(onSubmit)}
+				>
 					<Field
 						id="login"
 						name="login"
@@ -61,7 +64,7 @@ export const Authorization = () => {
 						error={errors.password?.message}
 						{...register("password")}
 					/>
-					<div className="mt-9 pt-5px">
+					<div className="mt-8 pt-5px flex justify-center items-center">
 						<Button
 							type="submit"
 							disabled={submitCount !== 0 && !isValid}
@@ -73,7 +76,7 @@ export const Authorization = () => {
 				</form>
 			</div>
 			<Card
-				classes="w-2/5 px-36"
+				classes="w-2/5"
 				title="Добро пожаловать!"
 				description="Хотите начать пользоваться тайм-трекером? Зарегистрируйтесь!"
 				component={

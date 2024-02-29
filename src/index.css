@@ -52,11 +52,11 @@
 
 	.link,
 	.btn {
-		@apply flex items-center justify-center rounded-[45px];
+		@apply flex items-center justify-center rounded-[45px] focus:outline-none;
 	}
 
 	.link__icon {
-		@apply bg-white absolute right-2 flex items-center justify-center h-10 w-10 rounded-[45px] transition-all duration-300 group-hover:w-[calc(100%-16px)] group-active:scale-95;
+		@apply bg-white absolute right-2 flex items-center justify-center h-10 w-10 rounded-[45px] transition-all duration-300 group-focus:w-[calc(100%-16px)] group-hover:w-[calc(100%-16px)] group-active:scale-95;
 	}
 
 	.btn-background-primary,
@@ -66,7 +66,7 @@
 
 	.btn-border-primary,
 	.link-border-primary {
-		@apply border-2 border-solid border-primary text-black bg-transparent !important;
+		@apply border-2 border-solid border-primary text-black bg-transparent;
 	}
 
 	.btn-border-white,
@@ -76,6 +76,6 @@
 
 	.btn-animation,
 	.link-animation {
-		@apply transition duration-300 hover:translate-y-[-5px] focus:translate-y-[-5px] focus:outline-none active:scale-95 active:duration-300;
+		@apply transition duration-300 hover:translate-y-[-5px] focus:translate-y-[-5px] active:scale-95 active:duration-300;
 	}
 }

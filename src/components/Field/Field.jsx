@@ -2,9 +2,9 @@ import { forwardRef } from "react";
 import { ErrorForm } from "../ErrorForm/ErrorForm";
 
 export const Field = forwardRef(
-	({ id, name, type, labelText, error, ...props }, ref) => {
+	({ classes = "", id, name, type, labelText, error, ...props }, ref) => {
 		return (
-			<div className="flex flex-col mt-8">
+			<div className={`flex flex-col mt-8 ${classes}`}>
 				<label
 					htmlFor={id}
 					className={`text-16px ${error ? "text-error" : "text-black"}`}
