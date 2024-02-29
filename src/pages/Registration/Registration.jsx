@@ -2,7 +2,7 @@ import { Button, Card, CustomLink, Field } from "../../components";
 
 export const Registration = () => {
 	return (
-		<div className="flex justify-between h-full">
+		<main className="flex justify-between h-full">
 			<Card
 				classes="w-2/5 px-36"
 				title="Здравствуйте!"
@@ -39,6 +39,6 @@ export const Registration = () => {
 					</div>
 				</form>
 			</div>
-		</div>
+		</main>
 	);
 };
