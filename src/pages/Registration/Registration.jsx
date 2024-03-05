@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Card, CustomLink, Field } from "../../components";
+import { Card, CustomLink, Field } from "../../components";
 
 const regFormScheme = yup.object().shape({
 	firstname: yup.string(),
@@ -116,13 +116,13 @@ export const Registration = () => {
 						{...register("passcheck")}
 					/>
 					<div className="mt-8 pt-5px flex justify-center items-center">
-						<Button
+						<button
 							type="submit"
+							className="btn btn-background-primary link-animation w-[300px] h-14 disabled:opacity-60"
 							disabled={submitCount !== 0 && !isValid}
-							widthClass="w-[300px]"
 						>
 							Зарегистрироваться
-						</Button>
+						</button>
 					</div>
 				</form>
 			</div>

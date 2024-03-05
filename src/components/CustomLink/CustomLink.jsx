@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const CustomLink = ({
 	children,
 	toPageLink,
-	widthClass,
+	widthClass = "w-fit",
 	modifier = "link-background-primary",
 	isAnimation = true,
 	isIcon = false,

@@ -1,16 +1,21 @@
 import { Route, Routes } from "react-router-dom";
-import { Authorization, Main, Registration } from "./pages";
-import { Header } from "./components";
+import { MainLayout, PrivateLayout } from "./layouts";
+import { Authorization, Main, Registration, Timer } from "./pages";
 
 export const App = () => {
 	return (
-		<div className="h-screen relative">
-			<Header />
-			<Routes>
+		<Routes>
+			<Route element={<MainLayout />}>
 				<Route path="/" element={<Main />} />
 				<Route path="/login" element={<Authorization />} />
 				<Route path="/register" element={<Registration />} />
-			</Routes>
-		</div>
+			</Route>
+			<Route element={<PrivateLayout />}>
+				<Route path="/timer" element={<Timer />} />
+				<Route path="/projects" element={<span>projects</span>} />
+				<Route path="/analytics" element={<span>analytics</span>} />
+				<Route path="/profile" element={<span>profile</span>} />
+			</Route>
+		</Routes>
 	);
 };

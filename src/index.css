@@ -41,6 +41,8 @@
 	}
 }
 
+@import url("./components/CustomSelect/custom-select.css");
+
 @layer components {
 	.title {
 		@apply text-40px font-bold;
@@ -77,5 +79,13 @@
 	.btn-animation,
 	.link-animation {
 		@apply transition duration-300 hover:translate-y-[-5px] focus:translate-y-[-5px] active:scale-95 active:duration-300;
+	}
+
+	.navlink {
+		@apply text-white mt-7 -ml-7 first:mt-0 px-7 py-3 rounded-l-[45px] transition duration-300 aria-[current=page]:navlink-active hover:translate-y-[-5px] focus:translate-y-[-5px] focus:outline-none active:scale-95;
+	}
+
+	.navlink-active {
+		@apply bg-white text-primary hover:translate-y-0 focus:translate-y-0;
 	}
 }
