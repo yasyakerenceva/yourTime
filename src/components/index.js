@@ -7,3 +7,4 @@ export * from "./Header/Header";
 export * from "./Sidebar/Sidebar";
 export * from "./ExtendedLink/ExtendedLink";
 export * from "./CustomSelect/CustomSelect";
+export * from "./Icon/Icon";

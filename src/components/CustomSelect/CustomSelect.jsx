@@ -22,7 +22,9 @@ export const CustomSelect = ({
 
 	return (
 		<div className="w-full mt-5 first:mt-0">
-			<label htmlFor={id}>{label}</label>
+			<label htmlFor={id} className="inline-block mb-1">
+				{label}
+			</label>
 			<Select
 				id={id}
 				classNamePrefix="custom-select"

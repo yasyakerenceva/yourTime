@@ -14,7 +14,7 @@
 }
 
 .custom-select__menu {
-	@apply animate-scaleIn;
+	@apply animate-scaleIn !important;
 }
 
 .custom-select__menu-list {
@@ -42,7 +42,7 @@
 }
 
 .custom-select__option--is-focused {
-	@apply bg-third text-primary !important;
+	@apply bg-gray-200 !important;
 }
 
 .custom-select__option--is-selected {

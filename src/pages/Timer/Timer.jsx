@@ -1,5 +1,5 @@
 import { CustomSelect } from "../../components";
-import { svgPause, svgPlay, svgStop } from "../../utils/svg";
+import { Stopwatch } from "./components";
 
 const projects = [
 	{
@@ -45,8 +45,8 @@ const optionsTasks = tasks.map((task) => {
 
 export const Timer = () => {
 	return (
-		<div className=" mt-10 flex flex-col items-center">
-			<div>
+		<>
+			<div className="mt-10 w-2/4 mx-auto flex flex-col items-center">
 				<CustomSelect
 					id="projects"
 					label="Проект:"
@@ -62,27 +62,7 @@ export const Timer = () => {
 					noOptionsMessage="Нет задач"
 				/>
 			</div>
-			<div>
-				<div className="text-[80px]">
-					<span>37</span>
-					<span>:</span>
-					<span>04</span>
-					<span className="text-black opacity-20">:</span>
-					<span className="text-black opacity-20">56</span>
-				</div>
-				<span>Общее время: 3ч 45м</span>
-				<div className="flex">
-					<button type="button" className="btn w-14 h-14">
-						{svgPlay()}
-					</button>
-					<button type="button" className="btn w-14 h-14">
-						{svgPause()}
-					</button>
-					<button type="button" className="btn w-14 h-14">
-						{svgStop()}
-					</button>
-				</div>
-			</div>
-		</div>
+			<Stopwatch />
+		</>
 	);
 };
