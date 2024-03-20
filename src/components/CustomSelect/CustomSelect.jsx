@@ -2,6 +2,7 @@ import { useState } from "react";
 import Select from "react-select";
 
 export const CustomSelect = ({
+	classes = "",
 	id,
 	label,
 	options,
@@ -21,8 +22,8 @@ export const CustomSelect = ({
 	};
 
 	return (
-		<div className="w-full mt-5 first:mt-0">
-			<label htmlFor={id} className="inline-block mb-1">
+		<div className={`w-full ${classes}`}>
+			<label htmlFor={id} className="inline-block mb-2">
 				{label}
 			</label>
 			<Select

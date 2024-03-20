@@ -1,3 +1,11 @@
+.custom-select__control {
+	@apply border-[#b9b9b9] min-h-14 !important;
+}
+
+.custom-select__control:hover {
+	@apply border-[#b9b9b9] cursor-text !important;
+}
+
 .custom-select__control,
 .custom-select__menu {
 	@apply rounded-lg !important;
@@ -5,12 +13,12 @@
 
 .custom-select__control--menu-is-open,
 .custom-select__control--is-focused {
-	@apply border-primary shadow-primary shadow-[0_0_0_1px_primary] !important;
+	@apply border-zinc-500/25 shadow-zinc-500/25 shadow-[0_0_0_1px_zinc-500/25] !important;
 }
 
 .custom-select__control--menu-is-open .custom-select__indicator svg,
 .custom-select__control--is-focused .custom-select__indicator svg {
-	@apply fill-primary !important;
+	@apply fill-zinc-500/25 !important;
 }
 
 .custom-select__menu {

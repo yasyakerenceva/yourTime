@@ -8,3 +8,4 @@ export * from "./Sidebar/Sidebar";
 export * from "./ExtendedLink/ExtendedLink";
 export * from "./CustomSelect/CustomSelect";
 export * from "./Icon/Icon";
+export * from "./Modal/Modal";

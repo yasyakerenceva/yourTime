@@ -10,8 +10,8 @@ export const ControlBtn = ({ iconId, onClick }) => {
 		>
 			<Icon
 				classes="control-btn-icon"
-				width="40"
-				height="40"
+				width="28"
+				height="28"
 				iconId={iconId}
 			/>
 		</button>

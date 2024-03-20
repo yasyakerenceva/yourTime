@@ -13,5 +13,6 @@ export const useStopwatch = (isRunning, startTime, setElapsedTime) => {
 		return () => {
 			clearInterval(intervalIdRef.current);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isRunning, startTime]);
 };

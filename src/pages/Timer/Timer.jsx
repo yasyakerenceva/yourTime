@@ -55,6 +55,7 @@ export const Timer = () => {
 					noOptionsMessage="Нет проектов"
 				/>
 				<CustomSelect
+					classes="mt-5"
 					id="tasks"
 					label="Задача:"
 					options={optionsTasks}

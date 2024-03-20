@@ -21,7 +21,7 @@ export const CustomLink = ({
 						classes="text-primary"
 						width="22"
 						height="22"
-						iconId="icon-arrow"
+						iconId="arrow-right"
 					/>
 				</div>
 			)}

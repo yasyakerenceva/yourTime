@@ -71,7 +71,7 @@ export const Registration = () => {
 					className="w-3/5 mx-auto"
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<div className="flex items-center justify-between">
+					<div className="flex items-center justify-between mt-8">
 						<Field
 							classes="w-[calc(50%-10px)]"
 							id="firstname"
@@ -96,6 +96,7 @@ export const Registration = () => {
 						name="login"
 						type="text"
 						labelText="Логин"
+						classes="mt-8"
 						error={errors.login?.message}
 						{...register("login")}
 					/>
@@ -104,6 +105,7 @@ export const Registration = () => {
 						name="password"
 						type="password"
 						labelText="Пароль"
+						classes="mt-8"
 						{...register("password")}
 						error={errors.password?.message}
 					/>
@@ -112,13 +114,14 @@ export const Registration = () => {
 						name="passcheck"
 						type="password"
 						labelText="Повтор пароля"
+						classes="mt-8"
 						error={errors.passcheck?.message}
 						{...register("passcheck")}
 					/>
 					<div className="mt-8 pt-5px flex justify-center items-center">
 						<button
 							type="submit"
-							className="btn btn-background-primary link-animation w-[300px] h-14 disabled:opacity-60"
+							className="btn btn-background-primary link-animation w-[300px] h-14 disabled:opacity-60 disabled:translate-y-[5px] disabled:active:scale-100"
 							disabled={submitCount !== 0 && !isValid}
 						>
 							Зарегистрироваться

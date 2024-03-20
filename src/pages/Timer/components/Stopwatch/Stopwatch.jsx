@@ -12,16 +12,16 @@ export const Stopwatch = () => {
 
 	const [hours, minutes, seconds] = getFormattedTime(elapsedTime);
 
-	const onClickStart = () => {
+	const handleClickStart = () => {
 		setIsRunning(true);
 		setStartTime(Date.now() - elapsedTime);
 	};
 
-	const onClickStop = () => {
+	const handleClickStop = () => {
 		setIsRunning(false);
 	};
 
-	const onClickReset = () => {
+	const handleClickReset = () => {
 		setElapsedTime(0);
 		setIsRunning(false);
 	};
@@ -39,13 +39,13 @@ export const Stopwatch = () => {
 			</div>
 			<div className="flex items-center justify-center mt-5">
 				{elapsedTime === 0 ? (
-					<ControlBtn iconId="icon-play" onClick={onClickStart} />
+					<ControlBtn iconId="play" onClick={handleClickStart} />
 				) : elapsedTime !== 0 && isRunning ? (
-					<ControlBtn iconId="icon-pause" onClick={onClickStop} />
+					<ControlBtn iconId="pause" onClick={handleClickStop} />
 				) : (
 					<>
-						<ControlBtn iconId="icon-stop" onClick={onClickReset} />
-						<ControlBtn iconId="icon-play" onClick={onClickStart} />
+						<ControlBtn iconId="stop" onClick={handleClickReset} />
+						<ControlBtn iconId="play" onClick={handleClickStart} />
 					</>
 				)}
 			</div>

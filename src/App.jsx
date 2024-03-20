@@ -1,6 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import { MainLayout, PrivateLayout } from "./layouts";
-import { Authorization, Main, Registration, Timer } from "./pages";
+import {
+	Authorization,
+	Main,
+	Registration,
+	Timer,
+	Projects,
+	Project,
+} from "./pages";
 
 export const App = () => {
 	return (
@@ -12,7 +19,9 @@ export const App = () => {
 			</Route>
 			<Route element={<PrivateLayout />}>
 				<Route path="/timer" element={<Timer />} />
-				<Route path="/projects" element={<span>projects</span>} />
+				<Route path="/projects" element={<Projects />} />
+				<Route path="/project" element={<Project />} />
+				<Route path="/project/:id" element={<Project />} />
 				<Route path="/analytics" element={<span>analytics</span>} />
 				<Route path="/profile" element={<span>profile</span>} />
 			</Route>
