@@ -12,13 +12,16 @@
 }
 
 .custom-select__control--menu-is-open,
-.custom-select__control--is-focused {
+.custom-select__control--is-focused,
+.custom-select__control--is-focused:hover {
 	@apply border-zinc-500/25 shadow-zinc-500/25 shadow-[0_0_0_1px_zinc-500/25] !important;
 }
 
-.custom-select__control--menu-is-open .custom-select__indicator svg,
-.custom-select__control--is-focused .custom-select__indicator svg {
-	@apply fill-zinc-500/25 !important;
+.custom-select__control--menu-is-open .custom-select__indicator,
+.custom-select__control--is-focused .custom-select__indicator,
+.custom-select__indicator,
+.custom-select__indicator:hover {
+	@apply text-zinc-500/25 !important;
 }
 
 .custom-select__menu {
@@ -29,8 +32,16 @@
 	@apply px-2 py-2 !important;
 }
 
+.custom-select__indicator {
+	@apply pr-4 !important;
+}
+
 .custom-select__indicator-separator {
 	@apply hidden !important;
+}
+
+.custom-select__value-container {
+	@apply pl-6 !important;
 }
 
 .custom-select__input-custom-select__menu-list {

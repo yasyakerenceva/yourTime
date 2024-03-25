@@ -7,6 +7,7 @@ import {
 	Timer,
 	Projects,
 	Project,
+	Analytics,
 } from "./pages";
 
 export const App = () => {
@@ -22,7 +23,7 @@ export const App = () => {
 				<Route path="/projects" element={<Projects />} />
 				<Route path="/project" element={<Project />} />
 				<Route path="/project/:id" element={<Project />} />
-				<Route path="/analytics" element={<span>analytics</span>} />
+				<Route path="/analytics" element={<Analytics />} />
 				<Route path="/profile" element={<span>profile</span>} />
 			</Route>
 		</Routes>

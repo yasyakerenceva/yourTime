@@ -1,10 +1,11 @@
 import { Icon } from "../Icon/Icon";
+import styles from "./modal.module.css";
 
 export const Modal = ({ children, title, btnName }) => {
 	return (
 		<div className="fixed top-0 left-0 right-0 bottom-0 z-20">
 			<div className="absolute bg-black opacity-50 w-full h-full"></div>
-			<section className="relative w-2/4 p-5 text-center top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 bg-white rounded-2xl shadow-lg ">
+			<section className={styles.modal}>
 				<div className="flex items-center justify-between">
 					<span className=" text-20px">{title}</span>
 					<button className="group w-7 h-7 flex items-center justify-center rounded-full bg-[#ececec] cursor-pointer outline-none active:scale-95 active:duration-300">

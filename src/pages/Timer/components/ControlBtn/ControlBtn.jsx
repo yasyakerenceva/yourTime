@@ -1,15 +1,15 @@
 import { Icon } from "../../../../components";
-import "./control-btn.css";
+import styles from "./control-btn.module.css";
 
 export const ControlBtn = ({ iconId, onClick }) => {
 	return (
 		<button
 			type="button"
-			className="group btn control-btn"
+			className={`group ${styles.controlBtn}`}
 			onClick={onClick}
 		>
 			<Icon
-				classes="control-btn-icon"
+				classes={`${styles.controlBtnIcon} group-hover:text-white`}
 				width="28"
 				height="28"
 				iconId={iconId}
