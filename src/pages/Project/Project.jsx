@@ -32,7 +32,7 @@ export const Project = () => {
 	}
 
 	return (
-		<div className=" h-full flex items-center justify-center">
+		<div className="h-full flex items-center justify-center">
 			{isEditing && (
 				<div className="w-full h-auto px-8 py-10 bg-white rounded-2xl shadow-lg">
 					<form className="flex items-center justify-between">

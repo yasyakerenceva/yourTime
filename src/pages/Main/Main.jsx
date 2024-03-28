@@ -1,4 +1,4 @@
-import mainImage from "./../../assets/images/main-image.png";
+import mainImage from "../../assets/images/main-image.png";
 import { CustomLink } from "../../components";
 
 export const Main = () => {

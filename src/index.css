@@ -86,7 +86,7 @@
 	}
 
 	.navlink-active {
-		@apply bg-white z-0 text-primary shadow-sm hover:translate-y-0 focus:translate-y-0 active:scale-100;
+		@apply bg-white z-0 text-primary hover:translate-y-0 focus:translate-y-0 active:scale-100;
 	}
 
 	.tag {
@@ -95,5 +95,17 @@
 
 	.tag-active {
 		@apply text-white bg-primary hover:translate-y-0 focus:translate-y-0 active:scale-100;
+	}
+
+	.scroll::-webkit-scrollbar {
+		@apply w-2 !important;
+	}
+
+	.scroll::-webkit-scrollbar-thumb {
+		@apply bg-primary rounded-lg !important;
+	}
+
+	.scroll::-webkit-scrollbar-track {
+		@apply bg-third rounded-lg !important;
 	}
 }

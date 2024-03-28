@@ -5,3 +5,4 @@ export * from "./Timer/Timer";
 export * from "./Projects/Projects";
 export * from "./Project/Project";
 export * from "./Analytics/Analytics";
+export * from "./Profile/Profile";

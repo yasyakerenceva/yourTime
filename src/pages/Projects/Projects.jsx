@@ -80,7 +80,7 @@ export const Projects = () => {
 				</CustomLink>
 			</div>
 			<Tags tags={tags} />
-			<div className="overflow-y-auto h-[calc(100%-125px)] pl-3 pr-3 pb-3 bg-white">
+			<div className="overflow-y-auto h-[calc(100%-125px)] pl-3 pr-3 pb-3 bg-white scroll">
 				{projects.map(
 					({
 						id,

@@ -8,6 +8,7 @@ import {
 	Projects,
 	Project,
 	Analytics,
+	Profile,
 } from "./pages";
 
 export const App = () => {
@@ -24,7 +25,7 @@ export const App = () => {
 				<Route path="/project" element={<Project />} />
 				<Route path="/project/:id" element={<Project />} />
 				<Route path="/analytics" element={<Analytics />} />
-				<Route path="/profile" element={<span>profile</span>} />
+				<Route path="/profile" element={<Profile />} />
 			</Route>
 		</Routes>
 	);

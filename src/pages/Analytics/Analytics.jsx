@@ -37,7 +37,7 @@ const PROJECT_MOCK = [
 export const Analytics = () => {
 	const [hours, minutes] = getFormattedTime(9000000);
 	return (
-		<div className="overflow-y-auto h-full">
+		<div className="overflow-y-auto h-full scroll">
 			<div className="grid grid-cols-3  gap-8">
 				<Card
 					iconId="project"
