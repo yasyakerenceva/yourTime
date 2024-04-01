@@ -1,7 +1,12 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Card, CustomLink, Field } from "../../components";
+import { setUser } from "../../store/actions";
+import { request } from "../../utils";
+import { Card, CustomLink, ErrorForm, Field } from "../../components";
 
 const regFormScheme = yup.object().shape({
 	firstname: yup.string(),
@@ -44,9 +49,25 @@ export const Registration = () => {
 		resolver: yupResolver(regFormScheme),
 	});
 
-	const onSubmit = (formDate) => {
-		console.log("onSubmit:", formDate);
-		reset();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const [serverError, setServerError] = useState(null);
+
+	const onSubmit = ({ firstname, jobtitle, login, password }) => {
+		request("/register", "POST", {
+			firstname,
+			jobtitle,
+			login,
+			password,
+		}).then(({ error, user }) => {
+			if (error) {
+				setServerError(error);
+				return;
+			}
+			dispatch(setUser(user));
+			sessionStorage.setItem("userData", JSON.stringify(user));
+			navigate("/timer");
+		});
 	};
 
 	return (
@@ -67,6 +88,11 @@ export const Registration = () => {
 			/>
 			<div className="w-3/5 flex flex-col justify-center">
 				<h1 className="title text-center">Регистрация</h1>
+				{serverError && (
+					<div className=" self-center">
+						<ErrorForm>{serverError}</ErrorForm>
+					</div>
+				)}
 				<form
 					className="w-3/5 mx-auto"
 					onSubmit={handleSubmit(onSubmit)}
