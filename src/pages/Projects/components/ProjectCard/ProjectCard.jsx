@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getFormattedTime } from "../../../../utils";
+import { getFormattedDate, getFormattedTime } from "../../../../utils";
 import { Icon } from "../../../../components";
 import { TaskList } from "../TaskList/TaskList";
 import { useRef } from "react";
@@ -7,10 +7,10 @@ import { useRef } from "react";
 export const ProjectCard = ({
 	id,
 	name,
-	fullTime,
 	time,
+	fullTime,
 	tag,
-	dateCreation,
+	createdAt,
 	tasks,
 }) => {
 	const linkRef = useRef(null);
@@ -33,7 +33,7 @@ export const ProjectCard = ({
 							height="16"
 							classes="mr-3 text-zinc-400"
 						/>
-						{dateCreation}
+						{getFormattedDate(createdAt)}
 					</span>
 					<span className="text-[14px] text-zinc-400">
 						Общее время:

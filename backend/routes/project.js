@@ -27,6 +27,11 @@ router.get("/", authenticated, async (req, res) => {
 	res.send({ data: { lastPage, projects: projects.map(mapProject) } });
 });
 
+router.get("/status", authenticated, async (req, res) => {
+	const status = await getStatus();
+	res.send({ data: status });
+});
+
 router.get("/:id", authenticated, async (req, res) => {
 	const project = await getProject(req.params.id);
 
@@ -57,11 +62,6 @@ router.delete("/:id", authenticated, async (req, res) => {
 	await deleteProject(req.params.id);
 
 	res.send({ error: null });
-});
-
-router.get("/status", authenticated, async (req, res) => {
-	const status = await getStatus();
-	res.send({ data: status });
 });
 
 // TASKS

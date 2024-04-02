@@ -11,5 +11,8 @@ module.exports = function (project) {
 			mongoose.isObjectIdOrHexString(task) ? task : mapTask(task),
 		),
 		createdAt: project.createdAt,
+		fullTime:
+			project.tasks.reduce((acc, curr) => acc + curr.time, 0) +
+			project.time,
 	};
 };

@@ -1,8 +1,17 @@
-import { Logo } from "../Logo/Logo";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/actions";
+import { request } from "../../utils";
 import { ExtendedLink } from "../ExtendedLink/ExtendedLink";
-import { CustomLink } from "../CustomLink/CustomLink";
+import { Logo } from "../Logo/Logo";
 
 export const Sidebar = () => {
+	const dispatch = useDispatch();
+
+	const handleLogout = () => {
+		request("/logout", "POST");
+		dispatch(logout());
+		sessionStorage.removeItem("userData");
+	};
 	return (
 		<header className="w-1/5 flex flex-col justify-between bg-primary py-11">
 			<div className="pl-14">
@@ -15,7 +24,12 @@ export const Sidebar = () => {
 				</nav>
 			</div>
 			<div className="pl-14">
-				<CustomLink toPageLink="/login">Выйти</CustomLink>
+				<button
+					className="w-fit link-background-primary link-animation shadow-none"
+					onClick={handleLogout}
+				>
+					Выйти
+				</button>
 			</div>
 		</header>
 	);

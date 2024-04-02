@@ -33,7 +33,7 @@ export const TaskList = ({ tasks, linkRef }) => {
 							className="flex relative items-center justify-between py-5 px-5 border-t-[0.5px] border-[#ececec] before:content-[''] before:absolute before:w-2 before:h-2 before:left-0 before:rounded-full before:bg-primary"
 						>
 							<span>{name}</span>
-							<span>{`${getFormattedTime(time)[0]}:${getFormattedTime(time)[1]}:${getFormattedTime(time)[2]}`}</span>
+							<span className=" inline-block w-28 text-center">{`${getFormattedTime(time)[0]}:${getFormattedTime(time)[1]}:${getFormattedTime(time)[2]}`}</span>
 						</li>
 					))}
 				</ul>

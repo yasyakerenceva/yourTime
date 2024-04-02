@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-export const Tags = ({ tags }) => {
+export const Tags = ({ tags, setStatus }) => {
 	const [activeId, setActiveId] = useState();
 
 	const handleClick = ({ target }) => {
 		setActiveId(target.dataset.id);
+		setStatus(Number(target.dataset.id));
 	};
 
 	return (
