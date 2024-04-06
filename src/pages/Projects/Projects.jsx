@@ -1,26 +1,28 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { request, debounce } from "../../utils";
 import { PAGINATION_LIMIT } from "../../constants";
-import { CustomLink, Loader } from "../../components";
-import { Search, Tags, ProjectCard } from "./components";
+import { CustomLink, Loader, MessageDefault } from "../../components";
+import { Search, Tags, ProjectCard, Pagination } from "./components";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTags } from "../../store/selectors";
+import { loadTagsAsync } from "../../store/actions";
 
 export const Projects = () => {
 	const [projects, setProjects] = useState([]);
-	const [tags, setTags] = useState([]);
 	const [page, setPage] = useState(1);
 	const [lastPage, setLastPage] = useState(1);
 	const [status, setStatus] = useState();
 	const [shouldSearch, setShouldSearch] = useState(false);
 	const [searchPhrase, setSearchPhrase] = useState("");
-	const [isLoadingTags, setIsLoadingTags] = useState(false);
 	const [isLoadingProjects, setIsLoadingProjects] = useState(false);
+	const [isLoadingTags, setIsLoadingTags] = useState(false);
+	const dispatch = useDispatch();
+	const tags = useSelector(selectTags);
 
-	useEffect(() => {
-		request("/projects/status").then((statusRes) => {
-			setTags(statusRes.data);
-			setIsLoadingTags(true);
-		});
-	}, []);
+	useLayoutEffect(() => {
+		setIsLoadingTags(true);
+		dispatch(loadTagsAsync()).then(() => setIsLoadingTags(false));
+	}, [dispatch]);
 
 	useEffect(() => {
 		setIsLoadingProjects(true);
@@ -44,6 +46,7 @@ export const Projects = () => {
 		setSearchPhrase(target.value);
 		startDelayedSearch(!shouldSearch);
 	};
+
 	return (
 		<div className="relative h-full">
 			<div className="flex items-center justify-between">
@@ -58,11 +61,11 @@ export const Projects = () => {
 					Создать
 				</CustomLink>
 			</div>
-			{isLoadingTags && <Tags tags={tags} setStatus={setStatus} />}
+			{!isLoadingTags && <Tags tags={tags} setStatus={setStatus} />}
 			{isLoadingProjects ? (
 				<Loader />
 			) : projects.length > 0 ? (
-				<div className="overflow-y-auto h-[calc(100%-125px)] pl-3 pr-3 pb-3 bg-white scroll">
+				<div className="overflow-y-auto h-[calc(100%-193px)] p-3 mt-10 bg-white scroll">
 					{projects.map(
 						({
 							id,
@@ -80,18 +83,17 @@ export const Projects = () => {
 								fullTime={fullTime}
 								time={time}
 								createdAt={createdAt}
-								tag={tags.filter(({ id }) => id === status)[0]}
+								tag={tags.find(({ id }) => id === status)}
 								tasks={tasks}
 							/>
 						),
 					)}
 				</div>
 			) : (
-				<div className="flex items-center justify-center mt-24">
-					<span className="text-center text-primary font-bold">
-						Проектов нет
-					</span>
-				</div>
+				<MessageDefault marginTop="mt-24">Проектов нет</MessageDefault>
+			)}
+			{lastPage > 1 && !isLoadingProjects && (
+				<Pagination lastPage={lastPage} page={page} setPage={setPage} />
 			)}
 		</div>
 	);

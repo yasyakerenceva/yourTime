@@ -33,9 +33,13 @@ router.get("/status", authenticated, async (req, res) => {
 });
 
 router.get("/:id", authenticated, async (req, res) => {
-	const project = await getProject(req.params.id);
+	try {
+		const project = await getProject(req.params.id);
 
-	res.send({ data: mapProject(project) });
+		res.send({ data: mapProject(project) });
+	} catch (e) {
+		res.send({ error: "Такая страница не существует" });
+	}
 });
 
 router.post("/", authenticated, async (req, res) => {

@@ -44,7 +44,11 @@ async function getProjects(
 			.skip((page - 1) * limit)
 			.sort({ createdAt: -1 })
 			.populate("tasks"),
-		Project.countDocuments({ name: { $regex: search, $options: "i" } }),
+		Project.countDocuments({
+			user,
+			name: { $regex: search, $options: "i" },
+			status: tag,
+		}),
 	]);
 
 	return {

@@ -90,7 +90,7 @@ export const Authorization = () => {
 					/>
 					<div className="mt-8 pt-5px flex justify-center items-center">
 						<button
-							className="btn btn-background-primary link-animation w-[180px] h-14 disabled:opacity-60 disabled:translate-y-[5px] disabled:active:scale-100"
+							className="btn btn-background-primary link-animation w-[180px] h-14 btn-disabled"
 							type="submit"
 							disabled={submitCount !== 0 && !isValid}
 						>

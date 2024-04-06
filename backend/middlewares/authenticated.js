@@ -6,8 +6,6 @@ module.exports = async function (req, res, next) {
 
 	const user = await User.findOne({ _id: tokenData.id });
 
-	console.log("!!!!", user);
-
 	if (!user) {
 		res.send({ error: "Авторизованный пользователь не найден" });
 		return;

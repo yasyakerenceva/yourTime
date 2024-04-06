@@ -10,7 +10,7 @@ module.exports = function (project) {
 		tasks: project.tasks.map((task) =>
 			mongoose.isObjectIdOrHexString(task) ? task : mapTask(task),
 		),
-		createdAt: project.createdAt,
+		createdAt: project.createdAt.toLocaleDateString(),
 		fullTime:
 			project.tasks.reduce((acc, curr) => acc + curr.time, 0) +
 			project.time,

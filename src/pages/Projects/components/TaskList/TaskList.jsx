@@ -26,7 +26,7 @@ export const TaskList = ({ tasks, linkRef }) => {
 				/>
 			</div>
 			{show && (
-				<ul className="ml-9 ">
+				<ul className="ml-9 max-h-60 overflow-y-auto scroll ">
 					{tasks.map(({ id, name, time }) => (
 						<li
 							key={id}

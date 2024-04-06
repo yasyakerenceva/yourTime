@@ -147,7 +147,7 @@ export const Registration = () => {
 					<div className="mt-8 pt-5px flex justify-center items-center">
 						<button
 							type="submit"
-							className="btn btn-background-primary link-animation w-[300px] h-14 disabled:opacity-60 disabled:translate-y-[5px] disabled:active:scale-100"
+							className="btn btn-background-primary link-animation w-[300px] h-14 btn-disabled"
 							disabled={submitCount !== 0 && !isValid}
 						>
 							Зарегистрироваться

@@ -1,21 +1,21 @@
-import { useState } from "react";
 import Select from "react-select";
 
 export const CustomSelect = ({
 	classes = "",
+	currentValue,
+	setCurrentValue,
 	id,
 	label,
-	options,
+	arrayOptions,
 	placeholder,
 	noOptionsMessage,
 }) => {
-	const [currentValue, setCurrentValue] = useState(null);
-
-	const getValue = () => {
-		return currentValue
-			? options.find((el) => el.value === currentValue)
-			: null;
-	};
+	const options = arrayOptions.map((option) => {
+		return {
+			value: option.id,
+			label: option.name,
+		};
+	});
 
 	const onChange = (newValue) => {
 		setCurrentValue(newValue.value);
@@ -29,11 +29,12 @@ export const CustomSelect = ({
 			<Select
 				id={id}
 				classNamePrefix="custom-select"
-				value={getValue()}
+				value={options.find((el) => el.value === currentValue)}
 				onChange={onChange}
 				options={options}
 				placeholder={placeholder}
 				noOptionsMessage={() => noOptionsMessage}
+				defaultValue={options.find((el) => el.value === currentValue)}
 			/>
 		</div>
 	);
