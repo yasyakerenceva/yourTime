@@ -52,7 +52,7 @@ export const Authorization = () => {
 				}
 				dispatch(setUser(user));
 				sessionStorage.setItem("userData", JSON.stringify(user));
-				navigate("/timer");
+				navigate("/profile");
 			},
 		);
 	};

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { request, debounce } from "../../utils";
 import { PAGINATION_LIMIT } from "../../constants";
 import { CustomLink, Loader, MessageDefault } from "../../components";
@@ -15,17 +15,16 @@ export const Projects = () => {
 	const [shouldSearch, setShouldSearch] = useState(false);
 	const [searchPhrase, setSearchPhrase] = useState("");
 	const [isLoadingProjects, setIsLoadingProjects] = useState(false);
-	const [isLoadingTags, setIsLoadingTags] = useState(false);
+	const [isLoadingTags, setIsLoadingTags] = useState(true);
 	const dispatch = useDispatch();
 	const tags = useSelector(selectTags);
 
-	useLayoutEffect(() => {
-		setIsLoadingTags(true);
-		dispatch(loadTagsAsync()).then(() => setIsLoadingTags(false));
+	useEffect(() => {
+		dispatch(loadTagsAsync()).finally(() => setIsLoadingTags(false));
 	}, [dispatch]);
 
 	useEffect(() => {
-		setIsLoadingProjects(true);
+		setIsLoadingProjects(true)
 		request(
 			`/projects?search=${searchPhrase}${[0, 1].includes(status) ? `&status=${status}` : ""}&page=${page}&limit=${PAGINATION_LIMIT}`,
 		)
@@ -61,40 +60,42 @@ export const Projects = () => {
 					Создать
 				</CustomLink>
 			</div>
-			{!isLoadingTags && <Tags tags={tags} setStatus={setStatus} />}
-			{isLoadingProjects ? (
-				<Loader />
-			) : projects.length > 0 ? (
-				<div className="overflow-y-auto h-[calc(100%-193px)] p-3 mt-10 bg-white scroll">
-					{projects.map(
-						({
-							id,
-							name,
-							time,
-							status,
-							fullTime,
-							createdAt,
-							tasks,
-						}) => (
-							<ProjectCard
-								key={id}
-								id={id}
-								name={name}
-								fullTime={fullTime}
-								time={time}
-								createdAt={createdAt}
-								tag={tags.find(({ id }) => id === status)}
-								tasks={tasks}
-							/>
-						),
-					)}
-				</div>
-			) : (
-				<MessageDefault marginTop="mt-24">Проектов нет</MessageDefault>
-			)}
-			{lastPage > 1 && !isLoadingProjects && (
-				<Pagination lastPage={lastPage} page={page} setPage={setPage} />
-			)}
+			{!isLoadingTags && <Tags tags={tags} setStatus={setStatus} setPage={setPage} />}
+			<div className="flex flex-col justify-between h-[calc(100%-125px)]">
+				{isLoadingProjects ? (
+					<Loader />
+				) : projects.length > 0 ? (
+					<div className="overflow-y-auto p-3 mt-10 bg-white scroll">
+						{projects.map(
+							({
+								id,
+								name,
+								time,
+								status,
+								fullTime,
+								createdAt,
+								tasks,
+							}) => (
+								<ProjectCard
+									key={id}
+									id={id}
+									name={name}
+									fullTime={fullTime}
+									time={time}
+									createdAt={createdAt}
+									tag={tags.find(({ id }) => id === status)}
+									tasks={tasks}
+								/>
+							),
+						)}
+					</div>
+				) : (
+					<MessageDefault marginTop="mt-24">Проектов нет</MessageDefault>
+				)}
+				{lastPage > 1 && !isLoadingProjects && (
+					<Pagination lastPage={lastPage} page={page} setPage={setPage} />
+				)}
+			</div>
 		</div>
 	);
 };

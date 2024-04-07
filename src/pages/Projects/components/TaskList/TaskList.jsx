@@ -12,8 +12,8 @@ export const TaskList = ({ tasks, linkRef }) => {
 	};
 
 	return (
-		<div className="px-7 border-t-[0.5px] border-[#ececec]">
-			<div className="flex py-5 items-center" onClick={handleClick}>
+		<div className="px-7 mt-2 border-t-[0.5px] border-[#ececec]">
+			<div className="flex pt-5 pb-3 items-center" onClick={handleClick}>
 				<span className="flex items-center justify-center w-6 h-6 mr-3 bg-primary text-white rounded">
 					{tasks.length}
 				</span>
@@ -26,7 +26,7 @@ export const TaskList = ({ tasks, linkRef }) => {
 				/>
 			</div>
 			{show && (
-				<ul className="ml-9 max-h-60 overflow-y-auto scroll ">
+				<ul className="ml-9 mt-5 pr-2 max-h-[16.25rem] overflow-y-auto scroll ">
 					{tasks.map(({ id, name, time }) => (
 						<li
 							key={id}

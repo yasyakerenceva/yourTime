@@ -12,4 +12,4 @@ export * from "./Modal/Modal";
 export * from "./Loader/Loader";
 export * from "./MessageDefault/MessageDefault";
 export * from "./Error/Error";
-export * from "./Back/Back";
+export * from "./Breadcrumbs/Breadcrumbs";

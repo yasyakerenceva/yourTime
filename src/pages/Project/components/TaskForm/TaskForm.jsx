@@ -31,7 +31,7 @@ export const TaskForm = ({ projectId }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form className="mt-4" onSubmit={handleSubmit}>
 			<Field
 				id="task"
 				name="task"

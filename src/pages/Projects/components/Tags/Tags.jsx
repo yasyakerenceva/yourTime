@@ -1,9 +1,11 @@
+import { memo } from "react";
 import { useState } from "react";
 
-export const Tags = ({ tags, setStatus }) => {
+export const Tags = memo(({ tags, setStatus, setPage }) => {
 	const [activeId, setActiveId] = useState();
 
 	const handleClick = ({ target }) => {
+		setPage(1);
 		setActiveId(target.dataset.id);
 		setStatus(Number(target.dataset.id));
 	};
@@ -30,4 +32,4 @@ export const Tags = ({ tags, setStatus }) => {
 			))}
 		</div>
 	);
-};
+});

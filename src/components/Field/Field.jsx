@@ -9,7 +9,7 @@ export const Field = forwardRef(
 					{labelText}
 				</label>
 				<input
-					className={`mt-2 px-6 py-4 h-14 mb-8 border border-solid border-[#b9b9b9] rounded-lg ${error ? "outline-error" : "outline-zinc-500/25"}`}
+					className={`mt-2 px-6 py-4 h-14 border border-solid border-[#b9b9b9] rounded-lg ${error ? "outline-error" : "outline-zinc-500/25"}`}
 					id={id}
 					name={name}
 					type={type}
