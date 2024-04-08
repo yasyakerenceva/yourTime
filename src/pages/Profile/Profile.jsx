@@ -1,14 +1,41 @@
-import { useSelector } from "react-redux";
-import profileImage from "../../assets/images/profile.png";
-import { Field } from "../../components";
+import { useLayoutEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../store/selectors";
-import { useState } from "react";
+import { setUser } from "../../store/actions";
+import { request } from "../../utils";
+import { Field } from "../../components";
+import profileImage from "../../assets/images/profile.png";
 
 export const Profile = () => {
-	const user = useSelector(selectUser);
-	const [firstname, setFirstname] = useState(user.firstname);
-	const [login, setLogin] = useState(user.login);
-	const [jobtitle, setJobtitle] = useState(user.jobtitle);
+	const {firstname: userFirstname , jobtitle: userJobtitle, login: userLogin} = useSelector(selectUser);
+	const dispatch = useDispatch();
+	const [firstname, setFirstname] = useState(userFirstname);
+	const [login, setLogin] = useState(userLogin);
+	const [jobtitle, setJobtitle] = useState(userJobtitle);
+	const [isSavingUser, setIsSavingUser] = useState(false);
+
+	useLayoutEffect(() => {
+		setFirstname(userFirstname);
+		setJobtitle(userJobtitle);
+		setLogin(userLogin)
+	}, [userLogin, userJobtitle, userFirstname]);
+
+	const checkValidation = () => {
+		if (!login) return true;
+		else if (isSavingUser) return true;
+		else if (firstname === userFirstname && login === userLogin && jobtitle === userJobtitle) return true;
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setIsSavingUser(true);
+		request(`/profile`, "PATCH", {
+			firstname, login, jobtitle
+		}).then((userData) => {
+			dispatch(setUser(userData.data));
+			sessionStorage.setItem("userData", JSON.stringify(userData.data));
+		}).finally(() => setIsSavingUser(false));
+	}
 
 	return (
 		<div className="h-full flex flex-col justify-center">
@@ -16,7 +43,7 @@ export const Profile = () => {
 				<div className="w-1/3">
 					<img src={profileImage} alt="profile" />
 				</div>
-				<form className="w-2/3 self-center">
+				<form className="w-2/3 self-center" onSubmit={handleSubmit}>
 					<div className="flex items-center justify-between">
 						<Field
 							classes="w-[calc(50%-10px)]"
@@ -24,8 +51,8 @@ export const Profile = () => {
 							name="firstname"
 							type="text"
 							labelText="Имя"
-							// value={firstname}
-							// onChange={({target}) => setFirstname(target.value)}
+							value={firstname}
+							onChange={({target}) => setFirstname(target.value)}
 						/>
 						<Field
 							classes="w-[calc(50%-10px)]"
@@ -33,8 +60,8 @@ export const Profile = () => {
 							name="login"
 							type="text"
 							labelText="Логин"
-							// value={login}
-							// onChange={({target}) => setLogin(target.value)}
+							value={login}
+							onChange={({target}) => setLogin(target.value)}
 						/>
 					</div>
 					<Field
@@ -43,12 +70,13 @@ export const Profile = () => {
 						name="jobtitle"
 						type="text"
 						labelText="Должность"
-						// value={jobtitle}
-						// onChange={({target}) => setJobtitle(target.value)}
+						value={jobtitle}
+						onChange={({target}) => setJobtitle(target.value)}
 					/>
 					<div className="mt-8 pt-5px flex justify-end items-center">
 						<button
 							type="submit"
+							disabled={checkValidation()}
 							className="btn btn-background-primary link-animation w-[200px] h-14 disabled:opacity-60 disabled:translate-y-[5px] disabled:active:scale-100"
 						>
 							Сохранить

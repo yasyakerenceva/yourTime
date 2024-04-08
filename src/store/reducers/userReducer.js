@@ -4,7 +4,7 @@ const initialUserState = {
 	id: null,
 	firstname: "",
 	jobtitle: "",
-	login: null,
+	login: "",
 };
 
 export const userReducer = (state = initialUserState, action) => {

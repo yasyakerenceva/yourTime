@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import Select from "react-select";
 
 export const CustomSelect = ({
@@ -8,8 +9,10 @@ export const CustomSelect = ({
 	label,
 	arrayOptions,
 	placeholder,
+	onBlur,
 	noOptionsMessage,
 }) => {
+	const ref = useRef(null);
 	const options = arrayOptions.map((option) => {
 		return {
 			value: option.id,
@@ -19,6 +22,10 @@ export const CustomSelect = ({
 
 	const onChange = (newValue) => {
 		setCurrentValue(newValue.value);
+		setTimeout(() => {
+			ref.current.blur();
+		}, 0)
+
 	};
 
 	return (
@@ -28,9 +35,11 @@ export const CustomSelect = ({
 			</label>
 			<Select
 				id={id}
+				ref={ref}
 				classNamePrefix="custom-select"
 				value={options.find((el) => el.value === currentValue)}
 				onChange={onChange}
+				onBlur={onBlur}
 				options={options}
 				placeholder={placeholder}
 				noOptionsMessage={() => noOptionsMessage}

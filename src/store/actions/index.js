@@ -14,3 +14,5 @@ export * from "./removeTask";
 export * from "./removeTaskAsync";
 export * from "./loadTagsAsync";
 export * from "./setTagsData";
+export * from "./loadProjectsAsync";
+// export * from "./setProjectsData";

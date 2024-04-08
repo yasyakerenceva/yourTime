@@ -6,3 +6,4 @@ export * from "./selectModalOnConfirm";
 export * from "./selectModalTitle";
 export * from "./selectTags";
 export * from "./selectUser";
+export * from "./selectProjects";

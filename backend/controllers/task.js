@@ -16,10 +16,6 @@ async function editTask(projectId, taskId, task) {
 		{ _id: taskId },
 		{ $set: { name: task.name, time: task.time } },
 	);
-
-	// return await Project.findByIdAndUpdate(projectId, {
-	// 	$set: { tasks: newTask },
-	// });
 }
 
 // delete

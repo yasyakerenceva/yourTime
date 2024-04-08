@@ -23,7 +23,7 @@ async function editProject(id, project) {
 
 // delete
 function deleteProject(id) {
-	return Project.deleteOne({ _id: id });
+	return Project.deleteMany({ _id: id });
 }
 
 // get projects with search and pagination

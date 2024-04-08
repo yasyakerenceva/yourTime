@@ -84,7 +84,6 @@ router.patch("/:projectId/tasks/:taskId", authenticated, async (req, res) => {
 
 	const updatedTask = await editTask(projectId, taskId, { name, time });
 
-	console.log(updatedTask);
 	res.send({ data: mapTask(updatedTask) });
 });
 

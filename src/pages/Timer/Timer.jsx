@@ -1,66 +1,54 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CustomSelect } from "../../components";
 import { Stopwatch } from "./components";
-
-const projects = [
-	{
-		id: "001",
-		userId: "001",
-		name: "Web design",
-		totalTime: "3:45",
-		dataCreation: "2023-09-14",
-		status: "work",
-	},
-	{
-		id: "002",
-		userId: "001",
-		name: "todo",
-		totalTime: "1:00",
-		dataCreation: "2023-12-14",
-		status: "work",
-	},
-];
-
-const tasks = [
-	{
-		id: "001",
-		projectId: "001",
-		name: "1-task",
-		time: "0.30",
-	},
-];
-
-const optionsProject = projects.map((project) => {
-	return {
-		value: project.id,
-		label: project.name,
-	};
-});
-
-const optionsTasks = tasks.map((task) => {
-	return {
-		value: task.id,
-		label: task.name,
-	};
-});
+import { request } from "../../utils";
+import { loadProjectAsync, loadProjectsAsync } from "../../store/actions";
+import { selectProjects } from "../../store/selectors";
 
 export const Timer = () => {
+	const [projects, setProjects] = useState([]);
+	const [tasks, setTasks] = useState([]);
+	const [projectId, setProjectId] = useState('');
+	const [taskId, setTaskId] = useState(null);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(loadProjectsAsync(false))
+		.then(({ data: { projects } }) => {
+			setProjects(projects);
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const onBlur = () => {
+		dispatch(loadProjectAsync(projectId)).then((projectData) => {
+			setTasks(projectData.data.tasks);
+		});
+	}
+
 	return (
 		<>
 			<div className="mt-10 w-2/4 mx-auto flex flex-col items-center">
 				<CustomSelect
 					id="projects"
 					label="Проект:"
-					options={optionsProject}
+					arrayOptions={projects}
 					placeholder="Выберите проект"
 					noOptionsMessage="Нет проектов"
+					currentValue={projectId}
+					setCurrentValue={setProjectId}
+					onBlur={onBlur}
 				/>
 				<CustomSelect
 					classes="mt-5"
 					id="tasks"
 					label="Задача:"
-					options={optionsTasks}
+					arrayOptions={tasks}
 					placeholder="Выберите задачу"
 					noOptionsMessage="Нет задач"
+					currentValue={taskId}
+					setCurrentValue={setTaskId}
 				/>
 			</div>
 			<Stopwatch />

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -76,11 +76,11 @@ export const ProjectForm = ({
 		);
 	};
 
-	const getConditionsDisabledBtn = () => {
+	const checkValidation  = () => {
 		if (!nameValue) return true;
 		else if (isSavingProject) return true;
 		else if (nameValue === name && statusValue === status) return true;
-	}
+	};
 
 	return (
 		<>
@@ -138,7 +138,7 @@ export const ProjectForm = ({
 						type="submit"
 						className="btn btn-background-primary link-animation w-[155px] h-14 btn-disabled"
 						onClick={handleSave}
-						disabled={getConditionsDisabledBtn()}
+						disabled={checkValidation()}
 					>
 						{isCreatingProject ? "Добавить" : "Сохранить"}
 					</button>

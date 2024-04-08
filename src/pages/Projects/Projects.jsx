@@ -4,8 +4,8 @@ import { PAGINATION_LIMIT } from "../../constants";
 import { CustomLink, Loader, MessageDefault } from "../../components";
 import { Search, Tags, ProjectCard, Pagination } from "./components";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTags } from "../../store/selectors";
-import { loadTagsAsync } from "../../store/actions";
+import { selectProjects, selectTags } from "../../store/selectors";
+import { loadProjectsAsync, loadTagsAsync } from "../../store/actions";
 
 export const Projects = () => {
 	const [projects, setProjects] = useState([]);
@@ -25,16 +25,14 @@ export const Projects = () => {
 
 	useEffect(() => {
 		setIsLoadingProjects(true)
-		request(
-			`/projects?search=${searchPhrase}${[0, 1].includes(status) ? `&status=${status}` : ""}&page=${page}&limit=${PAGINATION_LIMIT}`,
-		)
-			.then(({ data: { projects, lastPage } }) => {
-				setProjects(projects);
-				setLastPage(lastPage);
-			})
-			.finally(() => setIsLoadingProjects(false));
+
+		dispatch(loadProjectsAsync(true, searchPhrase, status, page, PAGINATION_LIMIT))
+		.then(({ data: { projects, lastPage } }) => {
+			setProjects(projects);
+		 	setLastPage(lastPage);
+		}).finally(() => setIsLoadingProjects(false));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [page, shouldSearch, status]);
+	}, [dispatch, page, shouldSearch, status]);
 
 	const startDelayedSearch = useMemo(
 		() => debounce(setShouldSearch, 2000),
