@@ -7,7 +7,11 @@ import { Field } from "../../components";
 import profileImage from "../../assets/images/profile.png";
 
 export const Profile = () => {
-	const {firstname: userFirstname , jobtitle: userJobtitle, login: userLogin} = useSelector(selectUser);
+	const {
+		firstname: userFirstname,
+		jobtitle: userJobtitle,
+		login: userLogin,
+	} = useSelector(selectUser);
 	const dispatch = useDispatch();
 	const [firstname, setFirstname] = useState(userFirstname);
 	const [login, setLogin] = useState(userLogin);
@@ -17,25 +21,33 @@ export const Profile = () => {
 	useLayoutEffect(() => {
 		setFirstname(userFirstname);
 		setJobtitle(userJobtitle);
-		setLogin(userLogin)
+		setLogin(userLogin);
 	}, [userLogin, userJobtitle, userFirstname]);
 
-	const checkValidation = () => {
-		if (!login) return true;
-		else if (isSavingUser) return true;
-		else if (firstname === userFirstname && login === userLogin && jobtitle === userJobtitle) return true;
-	}
+	const checkValidation =
+		!login ||
+		isSavingUser ||
+		(firstname === userFirstname &&
+			login === userLogin &&
+			jobtitle === userJobtitle);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setIsSavingUser(true);
 		request(`/profile`, "PATCH", {
-			firstname, login, jobtitle
-		}).then((userData) => {
-			dispatch(setUser(userData.data));
-			sessionStorage.setItem("userData", JSON.stringify(userData.data));
-		}).finally(() => setIsSavingUser(false));
-	}
+			firstname,
+			login,
+			jobtitle,
+		})
+			.then((userData) => {
+				dispatch(setUser(userData.data));
+				sessionStorage.setItem(
+					"userData",
+					JSON.stringify(userData.data),
+				);
+			})
+			.finally(() => setIsSavingUser(false));
+	};
 
 	return (
 		<div className="h-full flex flex-col justify-center">
@@ -52,7 +64,9 @@ export const Profile = () => {
 							type="text"
 							labelText="Имя"
 							value={firstname}
-							onChange={({target}) => setFirstname(target.value)}
+							onChange={({ target }) =>
+								setFirstname(target.value)
+							}
 						/>
 						<Field
 							classes="w-[calc(50%-10px)]"
@@ -61,7 +75,7 @@ export const Profile = () => {
 							type="text"
 							labelText="Логин"
 							value={login}
-							onChange={({target}) => setLogin(target.value)}
+							onChange={({ target }) => setLogin(target.value)}
 						/>
 					</div>
 					<Field
@@ -71,12 +85,12 @@ export const Profile = () => {
 						type="text"
 						labelText="Должность"
 						value={jobtitle}
-						onChange={({target}) => setJobtitle(target.value)}
+						onChange={({ target }) => setJobtitle(target.value)}
 					/>
 					<div className="mt-8 pt-5px flex justify-end items-center">
 						<button
 							type="submit"
-							disabled={checkValidation()}
+							disabled={checkValidation}
 							className="btn btn-background-primary link-animation w-[200px] h-14 disabled:opacity-60 disabled:translate-y-[5px] disabled:active:scale-100"
 						>
 							Сохранить

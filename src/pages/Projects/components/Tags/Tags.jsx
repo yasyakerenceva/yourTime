@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useState } from "react";
 
 export const Tags = memo(({ tags, setStatus, setPage }) => {
-	const [activeId, setActiveId] = useState();
+	const [activeId, setActiveId] = useState(-1);
 
 	const handleClick = ({ target }) => {
 		setPage(1);
@@ -13,9 +13,10 @@ export const Tags = memo(({ tags, setStatus, setPage }) => {
 	return (
 		<div className="mt-7 flex items-center pt-5px">
 			<button
-				className={`btn btn-animation tag ${!activeId ? "tag-active" : ""}`}
+				className={`btn btn-animation tag ${Number(activeId) === -1 ? "tag-active" : ""}`}
 				type="button"
 				onClick={handleClick}
+				data-id={-1}
 			>
 				Все
 			</button>

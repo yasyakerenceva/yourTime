@@ -1,7 +1,7 @@
 import { Icon } from "../../../../components";
 import { Tooltip } from "../Tooltip/Tooltip";
 
-export const Card = ({ children, iconId, name, classes, tooltip }) => {
+export const Card = ({ children, iconId, name, classes = "", tooltip }) => {
 	return (
 		<div
 			className={`${classes} rounded-2xl shadow-lg bg-white w-full p-5 mr-5 last:mr-0`}

@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useStopwatch } from "../../../../hooks/useStopwatch";
-import { getFormattedTime } from "../../../../utils";
+import { getFormattedTime, request } from "../../../../utils";
 import { ControlBtn } from "../ControlBtn/ControlBtn";
+import { saveProjectAsync } from "../../../../store/actions";
 
-export const Stopwatch = () => {
+export const Stopwatch = ({ projectId, taskId }) => {
 	const [isRunning, setIsRunning] = useState(false);
 	const [elapsedTime, setElapsedTime] = useState(0);
 	const [startTime, setStartTime] = useState(0);
+	const dispatch = useDispatch();
 
 	useStopwatch(isRunning, startTime, setElapsedTime);
 
@@ -24,16 +27,31 @@ export const Stopwatch = () => {
 	const handleClickReset = () => {
 		setElapsedTime(0);
 		setIsRunning(false);
+		if (taskId) {
+			request(`/projects/${projectId}/tasks/${taskId}`, "PATCH", {
+				time: elapsedTime,
+			});
+		} else {
+			dispatch(
+				saveProjectAsync(projectId, {
+					time: elapsedTime,
+				}),
+			);
+		}
 	};
 
 	return (
 		<div className="mt-5 w-full flex flex-col items-center justify-center">
 			<div className="text-[80px]">
-				<span className="inline-block w-28">{hours}</span>
+				<span className="inline-flex items-center justify-center w-28">
+					{hours}
+				</span>
 				<span>:</span>
-				<span className="inline-block w-28">{minutes}</span>
+				<span className="inline-flex items-center justify-center w-28">
+					{minutes}
+				</span>
 				<span className="text-black opacity-20">:</span>
-				<span className="inline-block w-28 text-black opacity-20">
+				<span className="inline-flex items-center justify-center w-28 text-black opacity-20">
 					{seconds}
 				</span>
 			</div>

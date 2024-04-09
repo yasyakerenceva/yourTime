@@ -32,7 +32,7 @@ export const PieChart = ({ tags, projects }) => {
 	};
 
 	const data = {
-		labels: tags.map(({ value }) => value),
+		labels: tags.map(({ name }) => name),
 		datasets: [
 			{
 				data: tags.map(

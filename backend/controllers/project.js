@@ -27,18 +27,12 @@ function deleteProject(id) {
 }
 
 // get projects with search and pagination
-async function getProjects(
-	search = "",
-	tag = [0, 1],
-	limit = 3,
-	page = 1,
-	user,
-) {
+async function getProjects(search = "", tag = -1, limit, page = 1, user) {
 	const [projects, count] = await Promise.all([
 		Project.find({
 			user,
 			name: { $regex: search, $options: "i" },
-			status: tag,
+			status: tag > -1 ? tag : [0, 1],
 		})
 			.limit(limit)
 			.skip((page - 1) * limit)
@@ -47,7 +41,7 @@ async function getProjects(
 		Project.countDocuments({
 			user,
 			name: { $regex: search, $options: "i" },
-			status: tag,
+			status: tag > -1 ? tag : [0, 1],
 		}),
 	]);
 

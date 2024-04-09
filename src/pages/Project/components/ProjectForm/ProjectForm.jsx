@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -28,11 +28,6 @@ export const ProjectForm = ({
 	const tags = useSelector(selectTags);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useLayoutEffect(() => {
-		setNameValue(name);
-		setStatusValue(status);
-	}, [name, status]);
 
 	useEffect(() => {
 		const tagsDataJSON = sessionStorage.getItem("tagsData");
@@ -76,11 +71,10 @@ export const ProjectForm = ({
 		);
 	};
 
-	const checkValidation  = () => {
-		if (!nameValue) return true;
-		else if (isSavingProject) return true;
-		else if (nameValue === name && statusValue === status) return true;
-	};
+	const checkValidation =
+		!nameValue ||
+		isSavingProject ||
+		(nameValue === name && statusValue === status);
 
 	return (
 		<>
@@ -122,7 +116,6 @@ export const ProjectForm = ({
 							</MessageDefault>
 						)}
 					</>
-
 				)}
 				<div className="mt-8 pt-5px flex justify-end items-center">
 					{!isCreatingProject && (
@@ -138,7 +131,7 @@ export const ProjectForm = ({
 						type="submit"
 						className="btn btn-background-primary link-animation w-[155px] h-14 btn-disabled"
 						onClick={handleSave}
-						disabled={checkValidation()}
+						disabled={checkValidation}
 					>
 						{isCreatingProject ? "Добавить" : "Сохранить"}
 					</button>

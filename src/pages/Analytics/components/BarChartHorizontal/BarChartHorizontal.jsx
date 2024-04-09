@@ -19,9 +19,15 @@ ChartJS.register(
 	Legend,
 );
 
-export const BarChart = ({ projects }) => {
+export const BarChartHorizontal = ({ projects }) => {
+	const dates = projects
+		.sort((a, b) => b.fullTime - a.fullTime)
+		.slice(0, 3)
+		.filter(({ fullTime }) => fullTime !== 0);
+
 	const options = {
 		responsive: true,
+		indexAxis: "y",
 		plugins: {
 			legend: {
 				display: false,
@@ -52,16 +58,16 @@ export const BarChart = ({ projects }) => {
 		scales: {
 			y: {
 				min: 0,
-				max: 20,
+				max: 5,
 			},
 		},
 	};
 
 	const data = {
-		labels: projects.map(({ name }) => name),
+		labels: dates.map(({ createdAt }) => createdAt),
 		datasets: [
 			{
-				data: projects.map(({ fullTime }) => {
+				data: dates.map(({ fullTime }) => {
 					const [hours, minutes] = getFormattedTime(fullTime);
 					return (Number(hours) + Number(minutes) / 60).toFixed(2);
 				}),

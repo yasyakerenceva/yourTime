@@ -1,65 +1,76 @@
-import { getFormattedTime } from "../../utils";
-import { BarChart, Card, PieChart } from "./components";
-
-const TAGS_MOCK = [
-	{ id: 1, value: "В процессе" },
-	{ id: 2, value: "Завершенные" },
-];
-
-const PROJECT_MOCK = [
-	{
-		status: 1,
-		name: "Frontend",
-		fullTime: 39900,
-	},
-	{
-		status: 2,
-		name: "Ui",
-		fullTime: 120900,
-	},
-	{
-		status: 2,
-		name: "React",
-		fullTime: 65900,
-	},
-	{
-		status: 1,
-		name: "Vue",
-		fullTime: 3339900,
-	},
-	{
-		status: 1,
-		name: "Angular",
-		fullTime: 3567899900,
-	},
-];
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getFormattedTime, request } from "../../utils";
+import {
+	BarChart,
+	BarChartDate,
+	Card,
+	PieChart,
+	BarChartHorizontal,
+} from "./components";
+import { selectTags } from "../../store/selectors";
+import { setTagsData } from "../../store/actions";
+import { Loader } from "../../components";
 
 export const Analytics = () => {
-	const [hours, minutes] = getFormattedTime(9000000);
+	const [projects, setProjects] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const dispatch = useDispatch();
+	const tags = useSelector(selectTags);
+
+	useEffect(() => {
+		setIsLoading(true);
+		request("/projects")
+			.then(({ data: { projects } }) => {
+				setProjects(projects);
+			})
+			.then(() => setIsLoading(false));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		const tagsDataJSON = sessionStorage.getItem("tagsData");
+
+		if (!tagsDataJSON) {
+			return;
+		}
+
+		const tagsData = JSON.parse(tagsDataJSON);
+
+		dispatch(setTagsData(tagsData));
+	}, [dispatch]);
+
+	const fullTiime = projects.reduce((acc, curr) => acc + curr.fullTime, 0);
+	const [hours, minutes, seconds] = getFormattedTime(fullTiime);
+
+	if (isLoading) {
+		return <Loader />;
+	}
+
 	return (
-		<div className="overflow-y-auto h-full scroll">
+		<div className="overflow-y-auto h-full scroll px-2 py-4">
 			<div className="grid grid-cols-3  gap-8">
 				<Card
 					iconId="project"
 					name="Проекты"
 					tooltip="Количество всех проектов"
 				>
-					<span>25</span>
+					<span>{projects.length}</span>
 				</Card>
 				<Card iconId="time" name="Общее время">
-					<span>{`${hours}ч ${minutes}м`}</span>
+					<span>{`${hours}ч ${minutes}м ${seconds}сек`}</span>
 				</Card>
 				<Card classes="row-span-2">
-					<PieChart tags={TAGS_MOCK} projects={PROJECT_MOCK} />
+					<PieChart tags={tags} projects={projects} />
 				</Card>
 				<Card classes="col-span-2">
-					<BarChart projects={PROJECT_MOCK} />
+					<BarChart projects={projects} />
 				</Card>
 				<Card classes="col-span-2">
-					<BarChart projects={PROJECT_MOCK} />
+					<BarChartDate projects={projects} />
 				</Card>
 				<Card classes="col-span-2">
-					<BarChart projects={PROJECT_MOCK} />
+					<BarChartHorizontal projects={projects} />
 				</Card>
 			</div>
 		</div>

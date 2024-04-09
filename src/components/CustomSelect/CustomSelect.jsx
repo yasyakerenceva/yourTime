@@ -11,6 +11,7 @@ export const CustomSelect = ({
 	placeholder,
 	onBlur,
 	noOptionsMessage,
+	isDisabled = false,
 }) => {
 	const ref = useRef(null);
 	const options = arrayOptions.map((option) => {
@@ -20,12 +21,14 @@ export const CustomSelect = ({
 		};
 	});
 
+	const getValue = () => {
+		return String(currentValue)
+			? options.find((el) => el.value === currentValue)
+			: null;
+	};
+
 	const onChange = (newValue) => {
 		setCurrentValue(newValue.value);
-		setTimeout(() => {
-			ref.current.blur();
-		}, 0)
-
 	};
 
 	return (
@@ -37,7 +40,7 @@ export const CustomSelect = ({
 				id={id}
 				ref={ref}
 				classNamePrefix="custom-select"
-				value={options.find((el) => el.value === currentValue)}
+				value={getValue()}
 				onChange={onChange}
 				onBlur={onBlur}
 				options={options}

@@ -4,14 +4,14 @@ import { PAGINATION_LIMIT } from "../../constants";
 import { CustomLink, Loader, MessageDefault } from "../../components";
 import { Search, Tags, ProjectCard, Pagination } from "./components";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProjects, selectTags } from "../../store/selectors";
-import { loadProjectsAsync, loadTagsAsync } from "../../store/actions";
+import { selectTags } from "../../store/selectors";
+import { loadTagsAsync } from "../../store/actions";
 
 export const Projects = () => {
 	const [projects, setProjects] = useState([]);
 	const [page, setPage] = useState(1);
 	const [lastPage, setLastPage] = useState(1);
-	const [status, setStatus] = useState();
+	const [status, setStatus] = useState(-1);
 	const [shouldSearch, setShouldSearch] = useState(false);
 	const [searchPhrase, setSearchPhrase] = useState("");
 	const [isLoadingProjects, setIsLoadingProjects] = useState(false);
@@ -24,15 +24,17 @@ export const Projects = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		setIsLoadingProjects(true)
-
-		dispatch(loadProjectsAsync(true, searchPhrase, status, page, PAGINATION_LIMIT))
-		.then(({ data: { projects, lastPage } }) => {
-			setProjects(projects);
-		 	setLastPage(lastPage);
-		}).finally(() => setIsLoadingProjects(false));
+		setIsLoadingProjects(true);
+		request(
+			`/projects?search=${searchPhrase}&status=${status}&page=${page}&limit=${PAGINATION_LIMIT}`,
+		)
+			.then(({ data: { projects, lastPage } }) => {
+				setProjects(projects);
+				setLastPage(lastPage);
+			})
+			.finally(() => setIsLoadingProjects(false));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, page, shouldSearch, status]);
+	}, [page, shouldSearch, status]);
 
 	const startDelayedSearch = useMemo(
 		() => debounce(setShouldSearch, 2000),
@@ -58,7 +60,9 @@ export const Projects = () => {
 					Создать
 				</CustomLink>
 			</div>
-			{!isLoadingTags && <Tags tags={tags} setStatus={setStatus} setPage={setPage} />}
+			{!isLoadingTags && (
+				<Tags tags={tags} setStatus={setStatus} setPage={setPage} />
+			)}
 			<div className="flex flex-col justify-between h-[calc(100%-125px)]">
 				{isLoadingProjects ? (
 					<Loader />
@@ -88,10 +92,16 @@ export const Projects = () => {
 						)}
 					</div>
 				) : (
-					<MessageDefault marginTop="mt-24">Проектов нет</MessageDefault>
+					<MessageDefault marginTop="mt-24">
+						Проектов нет
+					</MessageDefault>
 				)}
 				{lastPage > 1 && !isLoadingProjects && (
-					<Pagination lastPage={lastPage} page={page} setPage={setPage} />
+					<Pagination
+						lastPage={lastPage}
+						page={page}
+						setPage={setPage}
+					/>
 				)}
 			</div>
 		</div>

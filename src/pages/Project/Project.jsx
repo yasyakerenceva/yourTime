@@ -3,7 +3,7 @@ import { useMatch, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RESET_PROJECT_DATA, loadProjectAsync } from "../../store/actions";
 import { selectProject } from "../../store/selectors";
-import { Error, Loader } from "../../components";
+import { Breadcrumbs, Error, Loader } from "../../components";
 import { ProjectForm } from "./components";
 
 export const Project = () => {
@@ -37,7 +37,10 @@ export const Project = () => {
 	return (
 		<div className="h-full">
 			{error ? (
-				<Error error={error} />
+				<>
+					<Breadcrumbs path="/projects">Все проекты</Breadcrumbs>
+					<Error error={error} />
+				</>
 			) : (
 				<ProjectForm project={project} isCreatingProject={isCreating} />
 			)}
