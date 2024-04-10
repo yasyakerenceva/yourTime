@@ -8,7 +8,7 @@ import {
 	Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { getFormattedTime } from "../../../../utils";
+import { getAxisScaleMaxValue, getFormattedTime } from "../../../../utils";
 
 ChartJS.register(
 	CategoryScale,
@@ -19,17 +19,17 @@ ChartJS.register(
 	Legend,
 );
 
-export const BarChart = ({ projects }) => {
+export const BarChartProjects = ({ projects }) => {
 	const options = {
 		responsive: true,
 		plugins: {
 			legend: {
 				display: false,
 			},
-			// title: {
-			// 	display: true,
-			// 	text: "Chart.js Bar Chart",
-			// },
+			title: {
+				display: true,
+				text: "Время работы над проектами",
+			},
 			tooltip: {
 				displayColors: false,
 				backgroundColor: "#ececec",
@@ -52,7 +52,7 @@ export const BarChart = ({ projects }) => {
 		scales: {
 			y: {
 				min: 0,
-				max: 20,
+				max: getAxisScaleMaxValue(projects),
 			},
 		},
 	};

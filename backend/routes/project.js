@@ -79,12 +79,12 @@ router.post("/:id/tasks", authenticated, async (req, res) => {
 });
 
 router.patch("/:projectId/tasks/:taskId", authenticated, async (req, res) => {
-	const { projectId, taskId } = req.params;
+	const { taskId } = req.params;
 	const { name, time } = req.body;
 
-	const updatedTask = await editTask(projectId, taskId, { name, time });
+	await editTask(taskId, { name, time });
 
-	res.send({ data: mapTask(updatedTask) });
+	res.send({ error: null });
 });
 
 router.delete("/:projectId/tasks/:taskId", authenticated, async (req, res) => {

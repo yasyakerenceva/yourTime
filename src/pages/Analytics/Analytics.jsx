@@ -1,47 +1,42 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFormattedTime, request } from "../../utils";
+import { getFormattedTime } from "../../utils";
 import {
-	BarChart,
 	BarChartDate,
 	Card,
 	PieChart,
 	BarChartHorizontal,
+	BarChartProjects,
 } from "./components";
-import { selectTags } from "../../store/selectors";
-import { setTagsData } from "../../store/actions";
+import { selectProjectsAll, selectTags } from "../../store/selectors";
+import { setProjectsAllData, setTagsData } from "../../store/actions";
 import { Loader } from "../../components";
 
 export const Analytics = () => {
-	const [projects, setProjects] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const dispatch = useDispatch();
 	const tags = useSelector(selectTags);
-
-	useEffect(() => {
-		setIsLoading(true);
-		request("/projects")
-			.then(({ data: { projects } }) => {
-				setProjects(projects);
-			})
-			.then(() => setIsLoading(false));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const projects = useSelector(selectProjectsAll);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const tagsDataJSON = sessionStorage.getItem("tagsData");
+		const projectsDataJSON = sessionStorage.getItem("projectsData");
 
-		if (!tagsDataJSON) {
-			return;
+		if (tagsDataJSON) {
+			const tagsData = JSON.parse(tagsDataJSON);
+			dispatch(setTagsData(tagsData));
 		}
 
-		const tagsData = JSON.parse(tagsDataJSON);
+		if (projectsDataJSON) {
+			const projectsData = JSON.parse(projectsDataJSON);
+			dispatch(setProjectsAllData(projectsData));
+		}
 
-		dispatch(setTagsData(tagsData));
+		setIsLoading(false);
 	}, [dispatch]);
 
 	const fullTiime = projects.reduce((acc, curr) => acc + curr.fullTime, 0);
-	const [hours, minutes, seconds] = getFormattedTime(fullTiime);
+	const [hours, minutes] = getFormattedTime(fullTiime);
 
 	if (isLoading) {
 		return <Loader />;
@@ -57,14 +52,18 @@ export const Analytics = () => {
 				>
 					<span>{projects.length}</span>
 				</Card>
-				<Card iconId="time" name="Общее время">
-					<span>{`${hours}ч ${minutes}м ${seconds}сек`}</span>
+				<Card
+					iconId="time"
+					name="Общее время"
+					tooltip="Затраченное время на всех проектах"
+				>
+					<span>{`${hours}ч ${minutes}м`}</span>
 				</Card>
 				<Card classes="row-span-2">
 					<PieChart tags={tags} projects={projects} />
 				</Card>
 				<Card classes="col-span-2">
-					<BarChart projects={projects} />
+					<BarChartProjects projects={projects} />
 				</Card>
 				<Card classes="col-span-2">
 					<BarChartDate projects={projects} />

@@ -8,7 +8,11 @@ import {
 	Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { getDatesForLastSevenDays, getFormattedTime } from "../../../../utils";
+import {
+	getAxisScaleMaxValue,
+	getDatesForLastSevenDays,
+	getFormattedTime,
+} from "../../../../utils";
 
 ChartJS.register(
 	CategoryScale,
@@ -46,10 +50,10 @@ export const BarChartDate = ({ projects }) => {
 			legend: {
 				display: false,
 			},
-			// title: {
-			// 	display: true,
-			// 	text: "Chart.js Bar Chart",
-			// },
+			title: {
+				display: true,
+				text: "Время работы за последние 7 дней.",
+			},
 			tooltip: {
 				displayColors: false,
 				backgroundColor: "#ececec",
@@ -72,7 +76,7 @@ export const BarChartDate = ({ projects }) => {
 		scales: {
 			y: {
 				min: 0,
-				max: 5,
+				max: getAxisScaleMaxValue(fullTimeArray),
 			},
 		},
 	};

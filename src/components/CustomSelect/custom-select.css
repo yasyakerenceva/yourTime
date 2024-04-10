@@ -20,7 +20,7 @@
 .custom-select__control--menu-is-open .custom-select__indicator,
 .custom-select__control--is-focused .custom-select__indicator,
 .custom-select__indicator,
-.custom-select__indicator:hover {
+.custom-select__dropdown-indicator:hover {
 	@apply text-zinc-500/25 !important;
 }
 
@@ -32,12 +32,20 @@
 	@apply px-2 py-2 !important;
 }
 
-.custom-select__indicator {
+.custom-select__dropdown-indicator {
 	@apply pr-4 !important;
 }
 
 .custom-select__indicator-separator {
 	@apply hidden !important;
+}
+
+.custom-select__clear-indicator {
+	@apply cursor-pointer p-2 !important;
+}
+
+.custom-select__clear-indicator:hover {
+	@apply text-zinc-500/50 !important;
 }
 
 .custom-select__value-container {

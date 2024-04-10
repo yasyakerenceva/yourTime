@@ -11,7 +11,7 @@ async function addTask(projectId, task) {
 }
 
 // edit
-async function editTask(projectId, taskId, task) {
+async function editTask(taskId, task) {
 	return await Task.updateOne(
 		{ _id: taskId },
 		{ $set: { name: task.name, time: task.time } },

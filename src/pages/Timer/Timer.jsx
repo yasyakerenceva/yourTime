@@ -1,33 +1,37 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CustomSelect } from "../../components";
 import { Stopwatch } from "./components";
-import { request } from "../../utils";
-import { loadProjectAsync } from "../../store/actions";
+import { loadProjectAsync, loadProjectsAllAsync } from "../../store/actions";
+import { selectProjectsAll } from "../../store/selectors";
 
 export const Timer = () => {
-	const [projects, setProjects] = useState([]);
 	const [tasks, setTasks] = useState([]);
-	const [isDisabledTask, setIsDisabledTask] = useState(true);
+	const [isLoadingProjects, setIsLoadingProjects] = useState(true);
+	const [isLoadingTasks, setIsLoadingTasks] = useState(false);
+	const [isDisabledTasks, setIsDisabledTasks] = useState(true);
 	const [projectId, setProjectId] = useState("");
 	const [taskId, setTaskId] = useState("");
 	const dispatch = useDispatch();
+	const projects = useSelector(selectProjectsAll);
 
 	useEffect(() => {
-		request("/projects").then(({ data: { projects } }) => {
-			setProjects(projects);
-		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		dispatch(loadProjectsAllAsync()).finally(() =>
+			setIsLoadingProjects(false),
+		);
+	}, [dispatch]);
 
 	useEffect(() => {
+		setIsDisabledTasks(true);
 		if (projectId) {
+			setIsLoadingTasks(true);
 			dispatch(loadProjectAsync(projectId)).then((projectData) => {
-				setTaskId("");
 				setTasks(projectData?.data?.tasks || []);
-				setIsDisabledTask(false);
+				setIsDisabledTasks(false);
+				setIsLoadingTasks(false);
 			});
 		}
+		setTaskId("");
 	}, [dispatch, projectId]);
 
 	return (
@@ -41,6 +45,7 @@ export const Timer = () => {
 					noOptionsMessage="Нет проектов"
 					currentValue={projectId}
 					setCurrentValue={setProjectId}
+					isLoading={isLoadingProjects}
 				/>
 				<CustomSelect
 					classes="mt-5"
@@ -51,7 +56,8 @@ export const Timer = () => {
 					noOptionsMessage="Нет задач"
 					currentValue={taskId}
 					setCurrentValue={setTaskId}
-					isDisabled={isDisabledTask}
+					isLoading={isLoadingTasks}
+					isDisabled={isDisabledTasks}
 				/>
 			</div>
 			<Stopwatch projectId={projectId} taskId={taskId} />

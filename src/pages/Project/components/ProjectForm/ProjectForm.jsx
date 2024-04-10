@@ -102,6 +102,7 @@ export const ProjectForm = ({
 							placeholder=""
 							currentValue={statusValue}
 							setCurrentValue={setStatusValue}
+							isClearable={false}
 						/>
 					</div>
 				</form>

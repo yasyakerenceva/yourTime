@@ -18,7 +18,7 @@ export const PrivateLayout = () => {
 
 		dispatch(
 			setUser({
-				...currentUserData
+				...currentUserData,
 			}),
 		);
 	}, [dispatch]);

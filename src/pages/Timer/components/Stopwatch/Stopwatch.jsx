@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useStopwatch } from "../../../../hooks/useStopwatch";
 import { getFormattedTime, request } from "../../../../utils";
@@ -12,6 +12,13 @@ export const Stopwatch = ({ projectId, taskId }) => {
 	const dispatch = useDispatch();
 
 	useStopwatch(isRunning, startTime, setElapsedTime);
+
+	useEffect(() => {
+		if (!(!!taskId && !!projectId)) {
+			setElapsedTime(0);
+			setIsRunning(false);
+		}
+	}, [projectId, taskId]);
 
 	const [hours, minutes, seconds] = getFormattedTime(elapsedTime);
 
@@ -27,11 +34,12 @@ export const Stopwatch = ({ projectId, taskId }) => {
 	const handleClickReset = () => {
 		setElapsedTime(0);
 		setIsRunning(false);
-		if (taskId) {
+
+		if (projectId && taskId) {
 			request(`/projects/${projectId}/tasks/${taskId}`, "PATCH", {
 				time: elapsedTime,
 			});
-		} else {
+		} else if (projectId) {
 			dispatch(
 				saveProjectAsync(projectId, {
 					time: elapsedTime,
@@ -57,13 +65,29 @@ export const Stopwatch = ({ projectId, taskId }) => {
 			</div>
 			<div className="flex items-center justify-center mt-5">
 				{elapsedTime === 0 ? (
-					<ControlBtn iconId="play" onClick={handleClickStart} />
+					<ControlBtn
+						iconId="play"
+						onClick={handleClickStart}
+						isDisabled={!projectId}
+					/>
 				) : elapsedTime !== 0 && isRunning ? (
-					<ControlBtn iconId="pause" onClick={handleClickStop} />
+					<ControlBtn
+						iconId="pause"
+						onClick={handleClickStop}
+						isDisabled={!projectId}
+					/>
 				) : (
 					<>
-						<ControlBtn iconId="stop" onClick={handleClickReset} />
-						<ControlBtn iconId="play" onClick={handleClickStart} />
+						<ControlBtn
+							iconId="stop"
+							onClick={handleClickReset}
+							isDisabled={!projectId}
+						/>
+						<ControlBtn
+							iconId="play"
+							onClick={handleClickStart}
+							isDisabled={!projectId}
+						/>
 					</>
 				)}
 			</div>

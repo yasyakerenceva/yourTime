@@ -34,11 +34,13 @@ export const Profile = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setIsSavingUser(true);
-		request(`/profile`, "PATCH", {
-			firstname,
-			login,
-			jobtitle,
-		})
+		const profileDate = {};
+
+		if (firstname !== userFirstname) profileDate.firstname = firstname;
+		if (login !== userLogin) profileDate.login = login;
+		if (jobtitle !== userJobtitle) profileDate.jobtitle = jobtitle;
+
+		request(`/profile`, "PATCH", profileDate)
 			.then((userData) => {
 				dispatch(setUser(userData.data));
 				sessionStorage.setItem(

@@ -1,11 +1,12 @@
 import { Icon } from "../../../../components";
 import styles from "./control-btn.module.css";
 
-export const ControlBtn = ({ iconId, onClick }) => {
+export const ControlBtn = ({ iconId, onClick, isDisabled = false }) => {
 	return (
 		<button
 			type="button"
-			className={`group ${styles.controlBtn}`}
+			className={`group ${styles.controlBtn} ${isDisabled ? "btn-disabled" : ""}`}
+			disabled={isDisabled}
 			onClick={onClick}
 		>
 			<Icon

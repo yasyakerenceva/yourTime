@@ -8,7 +8,7 @@ import {
 	Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { getFormattedTime } from "../../../../utils";
+import { getAxisScaleMaxValue, getFormattedTime } from "../../../../utils";
 
 ChartJS.register(
 	CategoryScale,
@@ -20,7 +20,7 @@ ChartJS.register(
 );
 
 export const BarChartHorizontal = ({ projects }) => {
-	const dates = projects
+	const projectsFiltered = projects
 		.sort((a, b) => b.fullTime - a.fullTime)
 		.slice(0, 3)
 		.filter(({ fullTime }) => fullTime !== 0);
@@ -32,10 +32,10 @@ export const BarChartHorizontal = ({ projects }) => {
 			legend: {
 				display: false,
 			},
-			// title: {
-			// 	display: true,
-			// 	text: "Chart.js Bar Chart",
-			// },
+			title: {
+				display: true,
+				text: "Время работы на топ-3 проектах.",
+			},
 			tooltip: {
 				displayColors: false,
 				backgroundColor: "#ececec",
@@ -56,18 +56,18 @@ export const BarChartHorizontal = ({ projects }) => {
 			},
 		},
 		scales: {
-			y: {
+			x: {
 				min: 0,
-				max: 5,
+				max: getAxisScaleMaxValue(projectsFiltered),
 			},
 		},
 	};
 
 	const data = {
-		labels: dates.map(({ createdAt }) => createdAt),
+		labels: projectsFiltered.map(({ name }) => name),
 		datasets: [
 			{
-				data: dates.map(({ fullTime }) => {
+				data: projectsFiltered.map(({ fullTime }) => {
 					const [hours, minutes] = getFormattedTime(fullTime);
 					return (Number(hours) + Number(minutes) / 60).toFixed(2);
 				}),
