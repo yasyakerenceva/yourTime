@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	CLOSE_MODAL,
 	openModal,
 	removeProjectAsync,
-	saveProjectAsync,
-	setTagsData,
+	saveProjectAsync
 } from "../../../../store/actions";
 import { selectTags } from "../../../../store/selectors";
 import {
@@ -28,18 +27,6 @@ export const ProjectForm = ({
 	const tags = useSelector(selectTags);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		const tagsDataJSON = sessionStorage.getItem("tagsData");
-
-		if (!tagsDataJSON) {
-			return;
-		}
-
-		const tagsData = JSON.parse(tagsDataJSON);
-
-		dispatch(setTagsData(tagsData));
-	}, [dispatch]);
 
 	const handleNameChange = ({ target }) => setNameValue(target.value);
 

@@ -9,8 +9,8 @@ import {
 	BarChartProjects,
 } from "./components";
 import { selectProjectsAll, selectTags } from "../../store/selectors";
-import { setProjectsAllData, setTagsData } from "../../store/actions";
-import { Loader } from "../../components";
+import { loadProjectsAllAsync } from "../../store/actions";
+import { Loader, MessageDefault } from "../../components";
 
 export const Analytics = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -19,20 +19,9 @@ export const Analytics = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const tagsDataJSON = sessionStorage.getItem("tagsData");
-		const projectsDataJSON = sessionStorage.getItem("projectsData");
-
-		if (tagsDataJSON) {
-			const tagsData = JSON.parse(tagsDataJSON);
-			dispatch(setTagsData(tagsData));
-		}
-
-		if (projectsDataJSON) {
-			const projectsData = JSON.parse(projectsDataJSON);
-			dispatch(setProjectsAllData(projectsData));
-		}
-
-		setIsLoading(false);
+		dispatch(loadProjectsAllAsync()).finally(() =>
+			setIsLoading(false),
+		);
 	}, [dispatch]);
 
 	const fullTiime = projects.reduce((acc, curr) => acc + curr.fullTime, 0);
@@ -40,6 +29,14 @@ export const Analytics = () => {
 
 	if (isLoading) {
 		return <Loader />;
+	}
+
+	if (projects.length === 0 && !isLoading) {
+		return (
+			<MessageDefault marginTop="mt-24">
+				Аналитика не может быть построена, нет проектов.
+			</MessageDefault>
+		)
 	}
 
 	return (

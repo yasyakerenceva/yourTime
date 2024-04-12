@@ -27,7 +27,7 @@ export const BarChartDate = ({ projects }) => {
 	const dates = getDatesForLastSevenDays().reverse();
 
 	const modificationDates = dates.map((date) => {
-		if (projects.find((project) => project.createdAt === date)) {
+		if (projects.find((project) => project.updatedAt === date)) {
 			return date;
 		}
 		return 0;
@@ -35,7 +35,7 @@ export const BarChartDate = ({ projects }) => {
 
 	const fullTimeArray = modificationDates.map((date) => {
 		const projectsFilter = projects.filter(
-			({ createdAt }) => createdAt === date,
+			({ updatedAt }) => updatedAt === date,
 		);
 
 		if (projectsFilter.length > 0) {
@@ -63,7 +63,7 @@ export const BarChartDate = ({ projects }) => {
 				bodyColor: "#000",
 				callbacks: {
 					label: function (context) {
-						const hours = Math.floor(Number(context.raw));
+						const hours = Math.round(Number(context.raw));
 						const minutes = Math.round(
 							(Number(context.raw) - hours) * 60,
 						);

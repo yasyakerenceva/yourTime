@@ -23,7 +23,7 @@ export const PieChart = ({ tags, projects }) => {
 				callbacks: {
 					label: function (context) {
 						return (
-							(Number(context.raw) * 100) / projects.length + "%"
+							Math.round((Number(context.raw) * 100) / projects.length) + "%"
 						);
 					},
 				},

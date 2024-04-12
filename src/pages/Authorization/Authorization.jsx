@@ -8,6 +8,8 @@ import { request } from "../../utils";
 import { setUser } from "../../store/actions";
 import { Card, CustomLink, ErrorForm, Field } from "../../components";
 
+import { motion } from "framer-motion"
+
 const authFormScheme = yup.object().shape({
 	login: yup
 		.string()
@@ -58,8 +60,19 @@ export const Authorization = () => {
 	};
 
 	return (
-		<main className="flex justify-between h-full">
-			<div className="w-3/5 flex flex-col justify-center">
+		<main
+			className="flex justify-between h-full"
+		>
+			<motion.div
+				initial={{width: '0%', opacity: 0}}
+				animate={{ width: '60%', opacity: 1 }}
+				exit={{width: '0%', opacity: 0}}
+				transition={{
+					duration: 0.3,
+					type: "tween",
+					ease: "easeIn"
+				}}
+				className="w-3/5 flex flex-col justify-center">
 				<h1 className="title text-center">Авторизация</h1>
 				{serverError && (
 					<div className=" self-center">
@@ -98,7 +111,7 @@ export const Authorization = () => {
 						</button>
 					</div>
 				</form>
-			</div>
+			</motion.div>
 			<Card
 				classes="w-2/5"
 				title="Добро пожаловать!"

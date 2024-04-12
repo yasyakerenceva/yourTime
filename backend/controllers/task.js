@@ -12,6 +12,12 @@ async function addTask(projectId, task) {
 
 // edit
 async function editTask(taskId, task) {
+	const prevTask = await Task.findOne({ _id: taskId });
+
+	if (task.time) {
+		task.time = task.time + prevTask.time;
+	}
+
 	return await Task.updateOne(
 		{ _id: taskId },
 		{ $set: { name: task.name, time: task.time } },

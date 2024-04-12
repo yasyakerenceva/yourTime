@@ -6,6 +6,7 @@ const initialProjectState = {
 	time: null,
 	status: 0,
 	createdAt: null,
+	updatedAt: null,
 	fullTime: null,
 	tasks: [],
 };

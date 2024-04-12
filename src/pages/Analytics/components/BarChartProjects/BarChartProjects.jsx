@@ -39,7 +39,7 @@ export const BarChartProjects = ({ projects }) => {
 				bodyColor: "#000",
 				callbacks: {
 					label: function (context) {
-						const hours = Math.floor(Number(context.raw));
+						const hours = Math.round(Number(context.raw));
 						const minutes = Math.round(
 							(Number(context.raw) - hours) * 60,
 						);

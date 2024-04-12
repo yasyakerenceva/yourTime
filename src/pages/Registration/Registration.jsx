@@ -8,6 +8,8 @@ import { setUser } from "../../store/actions";
 import { request } from "../../utils";
 import { Card, CustomLink, ErrorForm, Field } from "../../components";
 
+import { motion } from "framer-motion"
+
 const regFormScheme = yup.object().shape({
 	firstname: yup.string(),
 	jobtitle: yup.string(),
@@ -71,7 +73,8 @@ export const Registration = () => {
 	};
 
 	return (
-		<main className="flex justify-between h-full">
+		<main
+			className="flex justify-between h-full">
 			<Card
 				classes="w-2/5"
 				title="Здравствуйте!"
@@ -86,7 +89,16 @@ export const Registration = () => {
 					</CustomLink>
 				}
 			/>
-			<div className="w-3/5 flex flex-col justify-center">
+			<motion.div
+				initial={{width: '0%', opacity: 0}}
+				animate={{ width: '60%', opacity: 1 }}
+				exit={{width: '0%', opacity: 0}}
+				transition={{
+					duration: 0.3,
+					type: "tween",
+					ease: "easeIn"
+				}}
+				className="w-3/5 flex flex-col justify-center">
 				<h1 className="title text-center">Регистрация</h1>
 				{serverError && (
 					<div className=" self-center">
@@ -154,7 +166,7 @@ export const Registration = () => {
 						</button>
 					</div>
 				</form>
-			</div>
+			</motion.div>
 		</main>
 	);
 };

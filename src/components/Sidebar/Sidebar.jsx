@@ -17,23 +17,22 @@ export const Sidebar = () => {
 		navigate("/login");
 		sessionStorage.removeItem("userData");
 		sessionStorage.removeItem("tagsData");
-		sessionStorage.removeItem("projectsData");
 	};
 
 	return (
-		<header className="w-1/5 flex flex-col justify-between bg-primary py-11">
-			<div className="pl-14">
+		<header className="w-1/4 min-w-min flex flex-col bg-primary py-11 px-3">
+			<div className="pl-7">
 				<Logo toPath="/timer" />
-				<nav className="flex flex-col mt-20">
-					<ExtendedLink to="/timer">Таймер</ExtendedLink>
-					<ExtendedLink to={getActivePath(pathname, params.id)}>
-						Проекты
-					</ExtendedLink>
-					<ExtendedLink to="/analytics">Аналитика</ExtendedLink>
-					<ExtendedLink to="/profile">Профиль</ExtendedLink>
-				</nav>
 			</div>
-			<div className="pl-14">
+			<nav className="flex flex-col mt-20">
+				<ExtendedLink to="/timer">Таймер</ExtendedLink>
+				<ExtendedLink to={getActivePath(pathname, params.id)}>
+					Проекты
+				</ExtendedLink>
+				<ExtendedLink to="/analytics">Аналитика</ExtendedLink>
+				<ExtendedLink to="/profile">Профиль</ExtendedLink>
+			</nav>
+			<div className="pl-7 mt-auto">
 				<button
 					className="w-fit link-background-primary link-animation shadow-none"
 					onClick={handleLogout}

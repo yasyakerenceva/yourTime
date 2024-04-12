@@ -4,6 +4,6 @@ module.exports = function (user) {
 		firstname: user.firstname,
 		jobtitle: user.jobtitle,
 		login: user.login,
-		auth: true,
+		isAuth: true,
 	};
 };

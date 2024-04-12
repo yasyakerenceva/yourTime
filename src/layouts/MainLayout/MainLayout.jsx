@@ -1,14 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
+import { motion } from "framer-motion"
 import { Header } from "../../components";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/selectors";
 
 export const MainLayout = () => {
-	const user = useSelector(selectUser);
+	const {isAuth} = useSelector(selectUser);
 
-	console.log(user);
+	if (isAuth) {
+		return <Navigate to="/timer" />;
+	}
+
 	return (
-		<div className="h-screen relative">
+		<div
+			className="h-screen relative overflow-hidden"
+		>
 			<Header />
 			<Outlet />
 		</div>

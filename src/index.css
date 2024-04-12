@@ -86,11 +86,11 @@
 	}
 
 	.navlink {
-		@apply text-white mt-7 -ml-7 -mr-3 first:mt-0 px-7 py-3 rounded-l-[45px] transition-transform ease-in-out duration-300 aria-[current=page]:navlink-active hover:translate-y-[-5px] focus:translate-y-[-5px] focus:outline-none active:scale-95;
+		@apply text-white mt-7 first:mt-0 px-7 py-3 rounded-l-[45px] transition-transform ease-in-out duration-300 aria-[current=page]:navlink-active hover:translate-y-[-5px] focus:translate-y-[-5px] focus:outline-none active:scale-95;
 	}
 
 	.navlink-active {
-		@apply bg-white z-0 text-primary focus:translate-y-0 pointer-events-none;
+		@apply bg-white -mr-4 z-0 text-primary focus:translate-y-0 pointer-events-none;
 	}
 
 	.tag {

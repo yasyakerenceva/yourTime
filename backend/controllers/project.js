@@ -1,5 +1,6 @@
 const Project = require("../models/Project");
 const STATUS = require("../constants/status");
+const Task = require("../models/Task");
 
 // create
 async function createProject(project) {
@@ -12,6 +13,12 @@ async function createProject(project) {
 
 // edit
 async function editProject(id, project) {
+	const prevProject = await Project.findOne({ _id: id });
+
+	if (project.time) {
+		project.time = project.time + prevProject.time;
+	}
+
 	const newProject = await Project.findByIdAndUpdate(id, project, {
 		returnDocument: "after",
 	});
@@ -22,8 +29,12 @@ async function editProject(id, project) {
 }
 
 // delete
-function deleteProject(id) {
-	return Project.deleteMany({ _id: id });
+async function deleteProject(id) {
+	const project = await Project.findOne({ _id: id });
+	if (project.tasks) {
+		await Task.deleteMany({ _id: { $in: project.tasks } });
+	}
+	return await Project.deleteOne({ _id: id });
 }
 
 // get projects with search and pagination

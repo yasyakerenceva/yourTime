@@ -1,7 +1,7 @@
 const express = require("express");
 const { updateUser } = require("../controllers/user");
 const authenticated = require("../middlewares/authenticated");
-const mapUser = require("../helpers/mapUser");
+const mapUser = require("../helpers/mapUser")
 
 const router = express.Router({ mergeParams: true });
 

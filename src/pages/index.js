@@ -6,3 +6,4 @@ export * from "./Projects/Projects";
 export * from "./Project/Project";
 export * from "./Analytics/Analytics";
 export * from "./Profile/Profile";
+export * from "./404/404.jsx";

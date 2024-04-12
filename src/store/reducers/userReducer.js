@@ -5,6 +5,7 @@ const initialUserState = {
 	firstname: "",
 	jobtitle: "",
 	login: "",
+	isAuth: false,
 };
 
 export const userReducer = (state = initialUserState, action) => {
