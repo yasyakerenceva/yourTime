@@ -1,0 +1,89 @@
+.custom-select__control {
+	@apply border-[#b9b9b9] min-h-14 !important;
+}
+
+.custom-select__control:hover {
+	@apply border-[#b9b9b9] cursor-text !important;
+}
+
+.custom-select__control,
+.custom-select__menu {
+	@apply rounded-lg !important;
+}
+
+.custom-select__control--menu-is-open,
+.custom-select__control--is-focused,
+.custom-select__control--is-focused:hover {
+	@apply border-zinc-500/25 shadow-zinc-500/25 shadow-[0_0_0_1px_zinc-500/25] !important;
+}
+
+.custom-select__control--menu-is-open .custom-select__indicator,
+.custom-select__control--is-focused .custom-select__indicator,
+.custom-select__indicator,
+.custom-select__dropdown-indicator:hover {
+	@apply text-zinc-500/25 !important;
+}
+
+.custom-select__menu {
+	@apply animate-scaleIn !important;
+}
+
+.custom-select__menu-list {
+	@apply px-2 py-2 !important;
+}
+
+.custom-select__dropdown-indicator {
+	@apply pr-4 !important;
+}
+
+.custom-select__indicator-separator {
+	@apply hidden !important;
+}
+
+.custom-select__clear-indicator {
+	@apply cursor-pointer p-2 !important;
+}
+
+.custom-select__clear-indicator:hover {
+	@apply text-zinc-500/50 !important;
+}
+
+.custom-select__value-container {
+	@apply pl-6 !important;
+}
+
+.custom-select__input-custom-select__menu-list {
+	@apply m-0 p-0 !important;
+}
+
+.custom-select__value-custom-select__menu-list {
+	@apply cursor-text py-[6px] pr-0 pl-[15px] !important;
+}
+
+.custom-select__placeholder {
+	@apply m-0 !important;
+}
+
+.custom-select__option {
+	@apply rounded-lg p-3 mt-2 first:mt-0 !important;
+}
+
+.custom-select__option--is-focused {
+	@apply bg-gray-200 !important;
+}
+
+.custom-select__option--is-selected {
+	@apply text-primary font-bold bg-transparent !important;
+}
+
+.custom-select__menu-list::-webkit-scrollbar {
+	@apply w-2 !important;
+}
+
+.custom-select__menu-list::-webkit-scrollbar-thumb {
+	@apply bg-primary rounded-lg !important;
+}
+
+.custom-select__menu-list::-webkit-scrollbar-track {
+	@apply bg-third rounded-lg !important;
+}
