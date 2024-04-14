@@ -1,5 +1,5 @@
 import { Icon } from "../../../../components";
-import styles from "./pagination.module.css";
+import { PROP_TYPE } from "../../../../constants";
 
 export const Pagination = ({ lastPage, page, setPage }) => {
 	const pageNumbers = [];
@@ -9,9 +9,9 @@ export const Pagination = ({ lastPage, page, setPage }) => {
 	}
 
 	return (
-		<div className={styles.container}>
+		<div className="mt-9 w-full h-8 flex items-center justify-center">
 			<button
-				className={styles.btn}
+				className="pagination-btn"
 				disabled={page === 1}
 				onClick={() => setPage(page - 1)}
 			>
@@ -27,7 +27,7 @@ export const Pagination = ({ lastPage, page, setPage }) => {
 					key={num}
 					type="button"
 					disabled={page === num}
-					className={`${styles.btn} bg-third disabled:bg-primary`}
+					className="pagination-btn bg-third disabled:bg-primary"
 					onClick={() => setPage(num)}
 				>
 					{num}
@@ -35,7 +35,7 @@ export const Pagination = ({ lastPage, page, setPage }) => {
 			))}
 			<button
 				type="button"
-				className={`${styles.btn} bg-third `}
+				className="pagination-btn bg-third"
 				disabled={page === lastPage}
 				onClick={() => setPage(page + 1)}
 			>
@@ -48,4 +48,10 @@ export const Pagination = ({ lastPage, page, setPage }) => {
 			</button>
 		</div>
 	);
+};
+
+Pagination.propTypes = {
+	lastPage: PROP_TYPE.NUMBER_REQUIRED,
+	page: PROP_TYPE.NUMBER_REQUIRED,
+	setPage: PROP_TYPE.FUNCTION_REQUIRED,
 };

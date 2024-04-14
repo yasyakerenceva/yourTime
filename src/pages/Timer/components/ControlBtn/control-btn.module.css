@@ -1,7 +1,0 @@
-.controlBtn {
-	@apply btn relative  w-[50px] h-[50px] shadow-lg mr-8 last:mr-0 rounded-full transition-all ease-in-out duration-300 outline-none hover:bg-primary hover:duration-300 active:scale-95 active:duration-300;
-}
-
-.controlBtnIcon {
-	@apply text-primary transition-all ease-in-out duration-300;
-}

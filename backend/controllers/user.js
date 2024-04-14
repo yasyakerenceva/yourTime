@@ -4,6 +4,12 @@ const { generate } = require("../helpers/token");
 
 // register
 async function register(firstname, jobtitle, login, password) {
+	const userBD = await User.findOne({ login });
+
+	if (userBD) {
+		throw new Error("Пользователь под таким логином уже зарегистрирован.");
+	}
+
 	const passwordHash = await bcrypt.hash(password, 10);
 
 	const user = await User.create({

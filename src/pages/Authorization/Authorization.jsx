@@ -7,8 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { request } from "../../utils";
 import { setUser } from "../../store/actions";
 import { Card, CustomLink, ErrorForm, Field } from "../../components";
-
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import { CHANGE_WIDTH_VARIANTS, TRANSITION_ANIMATION } from "../../constants";
 
 const authFormScheme = yup.object().shape({
 	login: yup
@@ -54,25 +54,21 @@ export const Authorization = () => {
 				}
 				dispatch(setUser(user));
 				sessionStorage.setItem("userData", JSON.stringify(user));
-				navigate("/timer");
+				navigate("/login");
 			},
 		);
 	};
 
 	return (
-		<main
-			className="flex justify-between h-full"
-		>
+		<main className="flex justify-between h-full">
 			<motion.div
-				initial={{width: '0%', opacity: 0}}
-				animate={{ width: '60%', opacity: 1 }}
-				exit={{width: '0%', opacity: 0}}
-				transition={{
-					duration: 0.3,
-					type: "tween",
-					ease: "easeIn"
-				}}
-				className="w-3/5 flex flex-col justify-center">
+				variants={CHANGE_WIDTH_VARIANTS}
+				initial="initial"
+				animate="animate"
+				exit="exit"
+				transition={TRANSITION_ANIMATION}
+				className="w-3/5 flex flex-col justify-center"
+			>
 				<h1 className="title text-center">Авторизация</h1>
 				{serverError && (
 					<div className=" self-center">

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getFormattedTime } from "../../utils";
+import { useSelector } from "react-redux";
+import { getFormattedTime, request } from "../../utils";
 import {
 	BarChartDate,
 	Card,
@@ -8,35 +7,37 @@ import {
 	BarChartHorizontal,
 	BarChartProjects,
 } from "./components";
-import { selectProjectsAll, selectTags } from "../../store/selectors";
-import { loadProjectsAllAsync } from "../../store/actions";
-import { Loader, MessageDefault } from "../../components";
+import { selectTags } from "../../store/selectors";
+import { MessageDefault } from "../../components";
+import { useEffect, useState } from "react";
 
 export const Analytics = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [projects, setProjects] = useState([]);
 	const tags = useSelector(selectTags);
-	const projects = useSelector(selectProjectsAll);
-	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(loadProjectsAllAsync()).finally(() =>
-			setIsLoading(false),
-		);
-	}, [dispatch]);
+		request("/projects").then(({ data: { projects: projectsData } }) => {
+			setProjects(projectsData);
+		});
+	}, []);
 
 	const fullTiime = projects.reduce((acc, curr) => acc + curr.fullTime, 0);
 	const [hours, minutes] = getFormattedTime(fullTiime);
 
-	if (isLoading) {
-		return <Loader />;
-	}
-
-	if (projects.length === 0 && !isLoading) {
+	if (projects.length === 0) {
 		return (
 			<MessageDefault marginTop="mt-24">
 				Аналитика не может быть построена, нет проектов.
 			</MessageDefault>
-		)
+		);
+	}
+
+	if (Number(minutes) < 30) {
+		return (
+			<MessageDefault marginTop="mt-24">
+				Аналитика не может быть построена, слишком мало данных.
+			</MessageDefault>
+		);
 	}
 
 	return (

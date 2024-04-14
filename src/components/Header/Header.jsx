@@ -1,12 +1,19 @@
 import { useLocation } from "react-router-dom";
 import { CustomLink } from "../CustomLink/CustomLink";
 import { Logo } from "../Logo/Logo";
+import { motion } from "framer-motion";
+import { OPACITY_VARIANTS, TRANSITION_ANIMATION } from "../../constants";
 
 export const Header = () => {
 	const { pathname } = useLocation();
 
 	return (
-		<header
+		<motion.header
+			variants={OPACITY_VARIANTS}
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			transition={TRANSITION_ANIMATION}
 			className={`fixed top-0 w-full flex items-center justify-between py-4 px-10 ${pathname === "/" ? "border-b border-solid border-zinc-500/25" : ""}`}
 		>
 			<Logo toPath="/" pathname={pathname} />
@@ -28,6 +35,6 @@ export const Header = () => {
 					</CustomLink>
 				</div>
 			)}
-		</header>
+		</motion.header>
 	);
 };

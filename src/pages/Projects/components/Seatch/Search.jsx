@@ -1,4 +1,5 @@
 import { Icon } from "../../../../components";
+import { PROP_TYPE } from "../../../../constants";
 
 export const Search = ({ searchPhrase, onSearch }) => {
 	return (
@@ -21,4 +22,9 @@ export const Search = ({ searchPhrase, onSearch }) => {
 			/>
 		</div>
 	);
+};
+
+Search.propTypes = {
+	searchPhrase: PROP_TYPE.STRING_REQUIRED,
+	onSearch: PROP_TYPE.FUNCTION_REQUIRED,
 };

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
+import { PROP_TYPE } from "../../constants/prop-types";
 
 export const CustomLink = ({
 	children,
@@ -27,4 +28,13 @@ export const CustomLink = ({
 			)}
 		</Link>
 	);
+};
+
+CustomLink.propTypes = {
+	children: PROP_TYPE.NODE,
+	toPageLink: PROP_TYPE.STRING_REQUIRED,
+	widthClass: PROP_TYPE.STRING,
+	modifier: PROP_TYPE.STRING,
+	isAnimation: PROP_TYPE.BOOLEAN,
+	isIcon: PROP_TYPE.BOOLEAN,
 };

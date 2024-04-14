@@ -12,7 +12,4 @@ export * from "./addTask";
 export * from "./addTaskAsync";
 export * from "./removeTask";
 export * from "./removeTaskAsync";
-export * from "./loadTagsAsync";
 export * from "./setTagsData";
-export * from "./loadProjectsAllAsync";
-export * from "./setProjectsAllData";

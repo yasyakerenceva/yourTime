@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
+import { PROP_TYPE } from "../../constants/prop-types";
 
 export const Breadcrumbs = ({ children, path }) => {
 	const navigate = useNavigate();
@@ -17,4 +18,9 @@ export const Breadcrumbs = ({ children, path }) => {
 			<span className="text-primary font-bold">{children}</span>
 		</button>
 	);
+};
+
+Breadcrumbs.propTypes = {
+	children: PROP_TYPE.NODE,
+	path: PROP_TYPE.STRING_REQUIRED,
 };

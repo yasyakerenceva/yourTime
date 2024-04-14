@@ -1,10 +1,23 @@
 import mainImage from "../../assets/images/main-image.png";
 import { CustomLink } from "../../components";
+import { motion } from "framer-motion";
+import {
+	LEFT_MOVE_VARIANTS,
+	RIGHT_MOVE_VARIANTS,
+	TRANSITION_ANIMATION,
+} from "../../constants";
 
 export const Main = () => {
 	return (
 		<main className="flex h-full pt-[100px]">
-			<div className="w-2/5 self-center pl-20 pr-10">
+			<motion.div
+				variants={LEFT_MOVE_VARIANTS}
+				initial="initial"
+				animate="animate"
+				exit="exit"
+				transition={TRANSITION_ANIMATION}
+				className="w-2/5 self-center pl-20 pr-10"
+			>
 				<h1 className="title">
 					Отслеживайте <br /> свое рабочее время
 				</h1>
@@ -23,10 +36,17 @@ export const Main = () => {
 						Начать
 					</CustomLink>
 				</div>
-			</div>
-			<div className="w-3/5 self-center">
+			</motion.div>
+			<motion.div
+				variants={RIGHT_MOVE_VARIANTS}
+				initial="initial"
+				animate="animate"
+				exit="exit"
+				transition={TRANSITION_ANIMATION}
+				className="w-3/5 self-center"
+			>
 				<img src={mainImage} alt="main" />
-			</div>
+			</motion.div>
 		</main>
 	);
 };

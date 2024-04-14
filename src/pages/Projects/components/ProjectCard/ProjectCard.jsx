@@ -1,8 +1,10 @@
+import PropTypes from "prop-types";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { getFormattedTime } from "../../../../utils";
 import { Icon } from "../../../../components";
 import { TaskList } from "../TaskList/TaskList";
+import { PROP_TYPE } from "../../../../constants";
 
 export const ProjectCard = ({
 	id,
@@ -11,7 +13,7 @@ export const ProjectCard = ({
 	fullTime,
 	tag,
 	createdAt,
-	tasks
+	tasks,
 }) => {
 	const linkRef = useRef(null);
 	const [hours, minutes, seconds] = getFormattedTime(fullTime);
@@ -55,4 +57,14 @@ export const ProjectCard = ({
 			</Link>
 		</div>
 	);
+};
+
+ProjectCard.propTypes = {
+	id: PROP_TYPE.STRING_REQUIRED,
+	name: PROP_TYPE.STRING_REQUIRED,
+	time: PROP_TYPE.NUMBER_REQUIRED,
+	fullTime: PROP_TYPE.NUMBER_REQUIRED,
+	tag: PROP_TYPE.OBJECT_REQUIRED,
+	createdAt: PROP_TYPE.STRING_REQUIRED,
+	tasks: PropTypes.arrayOf(PROP_TYPE.TASK).isRequired,
 };

@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from "../type";
 
 const initialAppState = {
-	tags: JSON.parse(sessionStorage.getItem("tagsData")) || [],
+	tags: JSON.parse(sessionStorage.getItem("tags")) || [],
 	modal: {
 		isOpen: false,
 		title: "",

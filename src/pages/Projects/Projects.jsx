@@ -5,7 +5,6 @@ import { CustomLink, Loader, MessageDefault } from "../../components";
 import { Search, Tags, ProjectCard, Pagination } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTags } from "../../store/selectors";
-import { setTagsData } from "../../store/actions";
 
 export const Projects = () => {
 	const [projects, setProjects] = useState([]);
@@ -14,26 +13,27 @@ export const Projects = () => {
 	const [status, setStatus] = useState(-1);
 	const [shouldSearch, setShouldSearch] = useState(false);
 	const [searchPhrase, setSearchPhrase] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 	const tags = useSelector(selectTags);
 
 	useEffect(() => {
-		Promise.all([request(`/projects?search=${searchPhrase}&status=${status}&page=${page}&limit=${PAGINATION_LIMIT}`), request("/projects/status")]).then(
-			([{ data: { projects, lastPage } }, {data: tagsData}]) => {
+		setIsLoading(true);
+		request(
+			`/projects?search=${searchPhrase}&status=${status}&page=${page}&limit=${PAGINATION_LIMIT}`,
+		)
+			.then(({ data: { projects, lastPage } }) => {
 				setProjects(projects);
 				setLastPage(lastPage);
-				dispatch(setTagsData(tagsData));
-				sessionStorage.setItem("tagsData", JSON.stringify(tagsData));
-			},
-		).finally(() => {
-			setIsLoading(false);
-		});
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [page, shouldSearch, status, dispatch]);
 
 	const startDelayedSearch = useMemo(
-		() => debounce(setShouldSearch, 2000),
+		() => debounce(setShouldSearch, 1000),
 		[],
 	);
 
@@ -56,9 +56,7 @@ export const Projects = () => {
 					Создать
 				</CustomLink>
 			</div>
-			{!isLoading && (
-				<Tags tags={tags} setStatus={setStatus} setPage={setPage} />
-			)}
+			<Tags tags={tags} setStatus={setStatus} setPage={setPage} />
 			<div className="flex flex-col justify-between h-[calc(100%-125px)]">
 				{isLoading ? (
 					<Loader />

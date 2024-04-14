@@ -1,4 +1,6 @@
+import PropTypes from "prop-types";
 import { TaskItem } from "../TaskItem/TaskItem";
+import { PROP_TYPE } from "../../../../constants";
 
 export const TaskList = ({ tasks, projectId }) => {
 	return (
@@ -8,4 +10,9 @@ export const TaskList = ({ tasks, projectId }) => {
 			))}
 		</ul>
 	);
+};
+
+TaskList.propTypes = {
+	tasks: PropTypes.arrayOf(PROP_TYPE.TASK).isRequired,
+	projectId: PROP_TYPE.STRING_REQUIRED,
 };

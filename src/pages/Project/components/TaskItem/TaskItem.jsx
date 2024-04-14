@@ -7,6 +7,7 @@ import {
 } from "../../../../store/actions";
 import { request } from "../../../../utils";
 import { Icon } from "../../../../components";
+import { PROP_TYPE } from "../../../../constants";
 
 export const TaskItem = ({ id, name, projectId }) => {
 	const [taskValue, setTaskValue] = useState(name);
@@ -90,4 +91,10 @@ export const TaskItem = ({ id, name, projectId }) => {
 			</div>
 		</li>
 	);
+};
+
+TaskItem.propTypes = {
+	id: PROP_TYPE.STRING_REQUIRED,
+	name: PROP_TYPE.STRING_REQUIRED,
+	projectId: PROP_TYPE.STRING_REQUIRED,
 };

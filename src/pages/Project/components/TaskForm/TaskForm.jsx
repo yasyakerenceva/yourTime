@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTaskAsync } from "../../../../store/actions";
 import { Field } from "../../../../components";
+import { PROP_TYPE } from "../../../../constants";
 
 export const TaskForm = ({ projectId }) => {
 	const [newTask, setNewTask] = useState("");
@@ -43,4 +44,8 @@ export const TaskForm = ({ projectId }) => {
 			/>
 		</form>
 	);
+};
+
+TaskForm.propTypes = {
+	projectId: PROP_TYPE.STRING_REQUIRED,
 };

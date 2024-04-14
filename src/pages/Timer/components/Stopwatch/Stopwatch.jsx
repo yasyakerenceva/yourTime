@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { saveProjectAsync } from "../../../../store/actions";
 import { useStopwatch } from "../../../../hooks/useStopwatch";
 import { getFormattedTime, request } from "../../../../utils";
 import { ControlBtn } from "../ControlBtn/ControlBtn";
-import { saveProjectAsync } from "../../../../store/actions";
+import { PROP_TYPE } from "../../../../constants";
 
 export const Stopwatch = ({ projectId, taskId }) => {
 	const [isRunning, setIsRunning] = useState(false);
@@ -14,10 +15,8 @@ export const Stopwatch = ({ projectId, taskId }) => {
 	useStopwatch(isRunning, startTime, setElapsedTime);
 
 	useEffect(() => {
-		if (!(!!taskId && !!projectId)) {
-			setElapsedTime(0);
-			setIsRunning(false);
-		}
+		setElapsedTime(0);
+		setIsRunning(false);
 	}, [projectId, taskId]);
 
 	const [hours, minutes, seconds] = getFormattedTime(elapsedTime);
@@ -93,4 +92,9 @@ export const Stopwatch = ({ projectId, taskId }) => {
 			</div>
 		</div>
 	);
+};
+
+Stopwatch.propTypes = {
+	projectId: PROP_TYPE.STRING_REQUIRED,
+	taskId: PROP_TYPE.STRING_REQUIRED,
 };

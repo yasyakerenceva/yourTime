@@ -13,7 +13,9 @@ module.exports = function (project) {
 		createdAt: project.createdAt.toLocaleDateString(),
 		updatedAt: project.updatedAt.toLocaleDateString(),
 		fullTime:
-			project.tasks.reduce((acc, curr) => acc + curr.time, 0) +
-			project.time,
+			project.tasks.reduce(
+				(acc, curr) => acc + Math.floor(curr.time / 1000) * 1000,
+				0,
+			) + Math.floor(Math.floor(project.time / 1000) * 1000),
 	};
 };

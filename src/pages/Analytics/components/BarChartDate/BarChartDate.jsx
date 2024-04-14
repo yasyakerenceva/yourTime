@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -13,6 +14,7 @@ import {
 	getDatesForLastSevenDays,
 	getFormattedTime,
 } from "../../../../utils";
+import { PROP_TYPE } from "../../../../constants";
 
 ChartJS.register(
 	CategoryScale,
@@ -95,4 +97,8 @@ export const BarChartDate = ({ projects }) => {
 		],
 	};
 	return <Bar options={options} data={data} />;
+};
+
+BarChartDate.propTypes = {
+	projects: PropTypes.arrayOf(PROP_TYPE.PROJECT).isRequired,
 };

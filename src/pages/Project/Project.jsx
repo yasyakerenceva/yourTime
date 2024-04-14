@@ -28,7 +28,6 @@ export const Project = () => {
 			setError(projectData.error);
 			setIsLoading(false);
 		});
-
 	}, [dispatch, params.id, isCreating]);
 
 	if (isLoading) {
@@ -43,7 +42,6 @@ export const Project = () => {
 					<div className="h-[calc(100%-28px)] flex items-center justify-center">
 						<Error error={error} />
 					</div>
-
 				</>
 			) : (
 				<ProjectForm project={project} isCreatingProject={isCreating} />

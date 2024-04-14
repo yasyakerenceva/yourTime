@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { ErrorForm } from "../ErrorForm/ErrorForm";
+import { PROP_TYPE } from "../../constants/prop-types";
 
 export const Field = forwardRef(
 	({ classes = "", id, name, type, labelText, error, ...props }, ref) => {
@@ -21,3 +22,12 @@ export const Field = forwardRef(
 		);
 	},
 );
+
+Field.propTypes = {
+	classes: PROP_TYPE.STRING,
+	id: PROP_TYPE.STRING_REQUIRED,
+	name: PROP_TYPE.STRING_REQUIRED,
+	type: PROP_TYPE.STRING,
+	labelText: PROP_TYPE.STRING_REQUIRED,
+	error: PROP_TYPE.STRING,
+};

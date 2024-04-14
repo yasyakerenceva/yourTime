@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { CustomSelect } from "../../components";
 import { Stopwatch } from "./components";
-import { loadProjectAsync, loadProjectsAllAsync } from "../../store/actions";
-import { selectProjectsAll } from "../../store/selectors";
+import { loadProjectAsync, setTagsData } from "../../store/actions";
+import { request } from "../../utils";
 
 export const Timer = () => {
+	const [projects, setProjects] = useState([]);
 	const [tasks, setTasks] = useState([]);
 	const [isLoadingProjects, setIsLoadingProjects] = useState(true);
 	const [isLoadingTasks, setIsLoadingTasks] = useState(false);
@@ -13,12 +14,22 @@ export const Timer = () => {
 	const [projectId, setProjectId] = useState("");
 	const [taskId, setTaskId] = useState("");
 	const dispatch = useDispatch();
-	const projects = useSelector(selectProjectsAll);
 
 	useEffect(() => {
-		dispatch(loadProjectsAllAsync()).finally(() =>
-			setIsLoadingProjects(false),
-		);
+		Promise.all([request("/projects"), request("/projects/status")])
+			.then(
+				([
+					{
+						data: { projects: projectsData },
+					},
+					{ data: tagsData },
+				]) => {
+					setProjects(projectsData);
+					dispatch(setTagsData(tagsData));
+					sessionStorage.setItem("tags", JSON.stringify(tagsData));
+				},
+			)
+			.finally(() => setIsLoadingProjects(false));
 	}, [dispatch]);
 
 	useEffect(() => {

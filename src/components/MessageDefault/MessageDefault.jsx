@@ -1,3 +1,5 @@
+import { PROP_TYPE } from "../../constants/prop-types";
+
 export const MessageDefault = ({ children, marginTop }) => {
 	return (
 		<div className={`flex items-center justify-center ${marginTop}`}>
@@ -6,4 +8,9 @@ export const MessageDefault = ({ children, marginTop }) => {
 			</span>
 		</div>
 	);
+};
+
+MessageDefault.propTypes = {
+	children: PROP_TYPE.NODE,
+	marginTop: PROP_TYPE.STRING,
 };

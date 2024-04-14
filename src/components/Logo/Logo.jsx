@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { PROP_TYPE } from "../../constants/prop-types";
 
 export const Logo = ({ toPath, pathname }) => {
 	return (
@@ -10,4 +11,9 @@ export const Logo = ({ toPath, pathname }) => {
 			</span>
 		</Link>
 	);
+};
+
+Logo.propTypes = {
+	toPath: PROP_TYPE.STRING_REQUIRED,
+	pathname: PROP_TYPE.STRING,
 };

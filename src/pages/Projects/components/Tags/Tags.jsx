@@ -1,5 +1,7 @@
+import PropTypes from "prop-types";
 import { memo } from "react";
 import { useState } from "react";
+import { PROP_TYPE } from "../../../../constants";
 
 export const Tags = memo(({ tags, setStatus, setPage }) => {
 	const [activeId, setActiveId] = useState(-1);
@@ -34,3 +36,9 @@ export const Tags = memo(({ tags, setStatus, setPage }) => {
 		</div>
 	);
 });
+
+Tags.propTypes = {
+	tags: PropTypes.arrayOf(PROP_TYPE.TAG).isRequired,
+	setStatus: PROP_TYPE.FUNCTION_REQUIRED,
+	setPage: PROP_TYPE.FUNCTION_REQUIRED,
+};

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -9,6 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { getAxisScaleMaxValue, getFormattedTime } from "../../../../utils";
+import { PROP_TYPE } from "../../../../constants";
 
 ChartJS.register(
 	CategoryScale,
@@ -77,4 +79,8 @@ export const BarChartHorizontal = ({ projects }) => {
 		],
 	};
 	return <Bar options={options} data={data} />;
+};
+
+BarChartHorizontal.propTypes = {
+	projects: PropTypes.arrayOf(PROP_TYPE.PROJECT).isRequired,
 };

@@ -5,7 +5,7 @@ import {
 	CLOSE_MODAL,
 	openModal,
 	removeProjectAsync,
-	saveProjectAsync
+	saveProjectAsync,
 } from "../../../../store/actions";
 import { selectTags } from "../../../../store/selectors";
 import {
@@ -16,6 +16,7 @@ import {
 } from "../../../../components";
 import { TaskForm } from "../TaskForm/TaskForm";
 import { TaskList } from "../TaskList/TaskList";
+import { PROP_TYPE } from "../../../../constants";
 
 export const ProjectForm = ({
 	project: { id, name, status, tasks },
@@ -85,9 +86,11 @@ export const ProjectForm = ({
 						<CustomSelect
 							id="tags"
 							label="Статус"
-							arrayOptions={tags}
+							arrayOptions={tags.map((tag) => {
+								return { id: String(tag.id), name: tag.name };
+							})}
 							placeholder=""
-							currentValue={statusValue}
+							currentValue={String(statusValue)}
 							setCurrentValue={setStatusValue}
 							isClearable={false}
 						/>
@@ -127,4 +130,9 @@ export const ProjectForm = ({
 			</div>
 		</>
 	);
+};
+
+ProjectForm.propTypes = {
+	project: PROP_TYPE.PROJECT,
+	isCreatingProject: PROP_TYPE.BOOLEAN_REQUIRED,
 };

@@ -1,17 +1,19 @@
 import Select from "react-select";
+import PropTypes from "prop-types";
+import { PROP_TYPE } from "../../constants/prop-types";
 
 export const CustomSelect = ({
 	classes = "",
 	currentValue,
 	setCurrentValue,
 	id,
-	label,
+	label = "",
 	arrayOptions,
 	isLoading = false,
 	isDisabled = false,
 	isClearable = true,
-	placeholder,
-	noOptionsMessage,
+	placeholder = "",
+	noOptionsMessage = "",
 }) => {
 	const options = arrayOptions.map((option) => {
 		return {
@@ -50,4 +52,18 @@ export const CustomSelect = ({
 			/>
 		</div>
 	);
+};
+
+CustomSelect.propTypes = {
+	classes: PROP_TYPE.STRING,
+	currentValue: PROP_TYPE.STRING_REQUIRED,
+	setCurrentValue: PROP_TYPE.FUNCTION_REQUIRED,
+	id: PROP_TYPE.STRING_REQUIRED,
+	label: PROP_TYPE.STRING,
+	arrayOptions: PropTypes.arrayOf(PROP_TYPE.OPTION_SELECT).isRequired,
+	isLoading: PROP_TYPE.BOOLEAN,
+	isDisabled: PROP_TYPE.BOOLEAN,
+	isClearable: PROP_TYPE.BOOLEAN,
+	placeholder: PROP_TYPE.STRING,
+	noOptionsMessage: PROP_TYPE.STRING,
 };

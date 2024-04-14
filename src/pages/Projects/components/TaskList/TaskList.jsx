@@ -1,6 +1,8 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { Icon } from "../../../../components";
 import { getFormattedTime } from "../../../../utils";
+import { PROP_TYPE } from "../../../../constants";
 
 export const TaskList = ({ tasks, linkRef }) => {
 	const [show, setShow] = useState(false);
@@ -40,4 +42,9 @@ export const TaskList = ({ tasks, linkRef }) => {
 			)}
 		</div>
 	);
+};
+
+TaskList.propTypes = {
+	tasks: PropTypes.arrayOf(PROP_TYPE.TASK).isRequired,
+	linkRef: PROP_TYPE.OBJECT_REQUIRED,
 };

@@ -1,4 +1,5 @@
 import { Icon } from "../../../../components";
+import { PROP_TYPE } from "../../../../constants";
 
 export const Tooltip = ({ text = "" }) => {
 	if (!text) {
@@ -13,4 +14,8 @@ export const Tooltip = ({ text = "" }) => {
 			</span>
 		</div>
 	);
+};
+
+Tooltip.propTypes = {
+	text: PROP_TYPE.STRING,
 };

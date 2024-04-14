@@ -1,5 +1,7 @@
+import PropTypes from "prop-types";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { PROP_TYPE } from "../../../../constants";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -23,7 +25,9 @@ export const PieChart = ({ tags, projects }) => {
 				callbacks: {
 					label: function (context) {
 						return (
-							Math.round((Number(context.raw) * 100) / projects.length) + "%"
+							Math.round(
+								(Number(context.raw) * 100) / projects.length,
+							) + "%"
 						);
 					},
 				},
@@ -46,4 +50,9 @@ export const PieChart = ({ tags, projects }) => {
 	};
 
 	return <Pie data={data} options={options} />;
+};
+
+PieChart.propTypes = {
+	tags: PropTypes.arrayOf(PROP_TYPE.TAG).isRequired,
+	projects: PropTypes.arrayOf(PROP_TYPE.PROJECT).isRequired,
 };

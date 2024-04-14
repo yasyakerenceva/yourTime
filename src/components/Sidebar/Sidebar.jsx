@@ -16,7 +16,8 @@ export const Sidebar = () => {
 		dispatch(logout());
 		navigate("/login");
 		sessionStorage.removeItem("userData");
-		sessionStorage.removeItem("tagsData");
+		sessionStorage.removeItem("tags");
+		sessionStorage.removeItem("projects");
 	};
 
 	return (
@@ -34,7 +35,7 @@ export const Sidebar = () => {
 			</nav>
 			<div className="pl-7 mt-auto">
 				<button
-					className="w-fit link-background-primary link-animation shadow-none"
+					className="w-fit link-background-primary link-animation shadow-none outline-none"
 					onClick={handleLogout}
 				>
 					Выйти
