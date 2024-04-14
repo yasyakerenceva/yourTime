@@ -31,10 +31,6 @@ module.exports = {
 					"100%": { opacity: 1, transform: "scale(1)" },
 				},
 			},
-			// transitionProperty: {
-			// 	spacing:
-			// 		"transform, border-width, border, color, background-color",
-			// },
 		},
 	},
 	plugins: [],
