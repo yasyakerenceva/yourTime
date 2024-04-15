@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation, useMatch } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MainLayout, PrivateLayout } from "./layouts";
 import { selectUser } from "./store/selectors";
 import {
@@ -14,11 +14,26 @@ import {
 	Profile,
 	Page404,
 } from "./pages";
+import { useLayoutEffect } from "react";
+import { setUser } from "./store/actions";
 
 export const App = () => {
+	const dispatch = useDispatch();
 	const isLoginPage = !!useMatch("/login");
 	const location = useLocation();
 	const { isAuth } = useSelector(selectUser);
+
+	useLayoutEffect(() => {
+		const currentUserDataJSON = sessionStorage.getItem("userData");
+
+		if (!currentUserDataJSON) {
+			return;
+		}
+
+		const currentUserData = JSON.parse(currentUserDataJSON);
+
+		dispatch(setUser(currentUserData));
+	}, [dispatch]);
 
 	return (
 		<AnimatePresence mode="wait">

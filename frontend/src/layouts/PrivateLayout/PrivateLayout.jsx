@@ -1,7 +1,4 @@
-import { useLayoutEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../store/actions";
 import {
 	PROP_TYPE,
 	ROUTE_VARIANTS,
@@ -11,19 +8,6 @@ import { CustomLink, Error, Modal, Sidebar } from "../../components";
 import { motion } from "framer-motion";
 
 export const PrivateLayout = ({ isAuth, isLoginPage }) => {
-	const dispatch = useDispatch();
-
-	useLayoutEffect(() => {
-		const currentUserDataJSON = sessionStorage.getItem("userData");
-
-		if (!currentUserDataJSON) {
-			return;
-		}
-
-		const currentUserData = JSON.parse(currentUserDataJSON);
-
-		dispatch(setUser(currentUserData));
-	}, [dispatch]);
 
 	if (!isAuth && !isLoginPage) {
 		return (
