@@ -37,7 +37,6 @@ const regFormScheme = yup.object().shape({
 export const Registration = () => {
 	const {
 		register,
-		reset,
 		handleSubmit,
 		formState: { errors, isValid, submitCount },
 	} = useForm({

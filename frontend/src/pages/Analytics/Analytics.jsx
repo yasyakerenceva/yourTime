@@ -8,18 +8,24 @@ import {
 	BarChartProjects,
 } from "./components";
 import { selectTags } from "../../store/selectors";
-import { MessageDefault } from "../../components";
+import { Loader, MessageDefault } from "../../components";
 import { useEffect, useState } from "react";
 
 export const Analytics = () => {
 	const [projects, setProjects] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 	const tags = useSelector(selectTags);
 
 	useEffect(() => {
+		setIsLoading(true);
 		request("/projects").then(({ data: { projects: projectsData } }) => {
 			setProjects(projectsData);
-		});
+		}).finally(() => setIsLoading(false));
 	}, []);
+
+	if (isLoading) {
+		return <Loader />
+	}
 
 	const fullTiime = projects.reduce((acc, curr) => acc + curr.fullTime, 0);
 	const [hours, minutes] = getFormattedTime(fullTiime);
@@ -28,14 +34,6 @@ export const Analytics = () => {
 		return (
 			<MessageDefault marginTop="mt-24">
 				Аналитика не может быть построена, нет проектов.
-			</MessageDefault>
-		);
-	}
-
-	if (Number(minutes) < 30) {
-		return (
-			<MessageDefault marginTop="mt-24">
-				Аналитика не может быть построена, слишком мало данных.
 			</MessageDefault>
 		);
 	}

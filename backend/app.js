@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/", routes);
 
 mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
-	app.listen(PORT, () => {
-		console.log(`Server started on port ${PORT}`);
-	});
+  app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+  });
 });
